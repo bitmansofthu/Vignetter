@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F572C91C2F450B440045099F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F572C91B2F450B440045099F /* Assets.xcassets */; };
+		F572C9432F4526800045099F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F572C9422F4526800045099F /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F572C9222F450B440045099F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -25,8 +30,10 @@
 
 /* Begin PBXFileReference section */
 		F572C9142F450B410045099F /* Vignetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vignetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F572C91B2F450B440045099F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F572C9212F450B440045099F /* VignetterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VignetterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F572C92B2F450B440045099F /* VignetterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VignetterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F572C9422F4526800045099F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -76,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				F572C9162F450B410045099F /* Vignetter */,
+				F572C93E2F450FCD0045099F /* Resources */,
 				F572C9242F450B440045099F /* VignetterTests */,
 				F572C92E2F450B440045099F /* VignetterUITests */,
 				F572C9152F450B410045099F /* Products */,
@@ -90,6 +98,15 @@
 				F572C92B2F450B440045099F /* VignetterUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F572C93E2F450FCD0045099F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F572C91B2F450B440045099F /* Assets.xcassets */,
+				F572C9422F4526800045099F /* Localizable.xcstrings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +229,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F572C9432F4526800045099F /* Localizable.xcstrings in Resources */,
+				F572C91C2F450B440045099F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +348,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -386,6 +406,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -405,6 +426,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,6 +459,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

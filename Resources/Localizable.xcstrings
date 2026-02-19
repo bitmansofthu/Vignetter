@@ -1,0 +1,132 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld Ft" : {
+
+    },
+    "button_retry" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Újrapróbálkozás"
+          }
+        }
+      }
+    },
+    "checkout_title" : {
+
+    },
+    "dashboard_button_buy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás"
+          }
+        }
+      }
+    },
+    "dashboard_button_countySelector" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei matricák"
+          }
+        }
+      }
+    },
+    "dashboard_country_vignettes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Országos matricák"
+          }
+        }
+      }
+    },
+    "dashboard_error_message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikertelen letöltés, próbálkozzon újra!"
+          }
+        }
+      }
+    },
+    "dashboard_error_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba"
+          }
+        }
+      }
+    },
+    "dashboard_loading" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Betöltés…"
+          }
+        }
+      }
+    },
+    "dashboard_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vignetter"
+          }
+        }
+      }
+    },
+    "vignette_type_day" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D1 - napi (1 napos)"
+          }
+        }
+      }
+    },
+    "vignette_type_month" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D1 - havi"
+          }
+        }
+      }
+    },
+    "vignette_type_week" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D1 - heti (10 napos)"
+          }
+        }
+      }
+    },
+    "vignette_type_year" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}
