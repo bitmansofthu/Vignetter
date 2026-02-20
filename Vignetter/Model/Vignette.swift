@@ -18,10 +18,12 @@ enum VignetteType: String {
 struct Vignette: Hashable {
     let type: VignetteType
     let price: Int
+    let trxFee: Int
     
-    init(type: VignetteType, price: Int) {
+    init(type: VignetteType, price: Int, trxFee: Int) {
         self.type = type
         self.price = price
+        self.trxFee = trxFee
     }
     
     var name: LocalizedStringKey {

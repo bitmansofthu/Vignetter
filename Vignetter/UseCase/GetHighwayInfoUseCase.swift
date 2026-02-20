@@ -27,11 +27,20 @@ struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
         for vignette in response.payload.highwayVignettes {
             if let vignetteRawType = vignette.vignetteType.first,
                 let vignetteType = VignetteType(rawValue: vignetteRawType) {
-                vignettes.append(Vignette(type: vignetteType, price: vignette.cost))
+                vignettes.append(
+                    Vignette(
+                        type: vignetteType,
+                        price: vignette.cost,
+                        trxFee: vignette.trxFee
+                    )
+                )
             }
         }
         
-        return HighwayInfo(vignettes: vignettes)
+        return HighwayInfo(
+            vignettes: vignettes,
+            counties: response.payload.counties
+        )
     }
     
 }
@@ -39,7 +48,7 @@ struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
 struct GetHighwayInfoUseCasePreview: GetHighwayInfoUseCaseProtocol {
     
     func execute() async throws -> HighwayInfo {
-        HighwayInfo(vignettes: [])
+        HighwayInfo(vignettes: [], counties: [])
     }
     
 }

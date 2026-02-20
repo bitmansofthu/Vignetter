@@ -11,22 +11,30 @@ struct NavigationTitleModifier: ViewModifier {
     
     private let color: Color
     private let title: LocalizedStringKey
+    private let showBackButton: Bool
     private let backAction: (() -> Void)?
     
     init(
         title: LocalizedStringKey,
         color: Color,
+        showBackButton: Bool,
         backAction: (() -> Void)?
     ) {
         self.color = color
         self.title = title
+        self.showBackButton = showBackButton
         self.backAction = backAction
     }
     
     func body(content: Content) -> some View {
         content
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
+            .toolbarBackground(.lime, for: .navigationBar)
+            .toolbarColorScheme(.light, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
-                if backAction != nil {
+                if showBackButton {
                     if #available(iOS 26.0, *) {
                         backToolbarItem
                             .sharedBackgroundVisibility(.hidden)
@@ -36,7 +44,7 @@ struct NavigationTitleModifier: ViewModifier {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text("dashboard_title")
+                    Text(title)
                         .foregroundColor(.navy)
                 }
             }
@@ -57,11 +65,13 @@ extension View {
     func customNavigationTitle(
         title: LocalizedStringKey,
         color: Color = .navy,
+        showBackButton: Bool = false,
         backAction: (() -> Void)? = nil
     ) -> some View {
         modifier(NavigationTitleModifier(
             title: title,
             color: color,
+            showBackButton: showBackButton,
             backAction: backAction
         ))
     }

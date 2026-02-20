@@ -9,6 +9,7 @@ import SwiftUI
 
 extension CGFloat {
     enum FontSize {
+        static let ultraLarge: CGFloat = 40
         static let extraLarge: CGFloat = 20
         static let large: CGFloat = 16
         static let medium: CGFloat = 14

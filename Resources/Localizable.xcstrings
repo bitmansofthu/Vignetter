@@ -4,6 +4,16 @@
     "%lld Ft" : {
 
     },
+    "alert_button_ok" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
     "button_retry" : {
       "localizations" : {
         "en" : {
@@ -14,8 +24,95 @@
         }
       }
     },
+    "checkout_alert_error_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba"
+          }
+        }
+      }
+    },
+    "checkout_buy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tovább"
+          }
+        }
+      }
+    },
+    "checkout_cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mégse"
+          }
+        }
+      }
+    },
+    "checkout_general_error" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba történt a vásárlás közben, próbálkozzon később."
+          }
+        }
+      }
+    },
+    "checkout_navigation_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vignetter"
+          }
+        }
+      }
+    },
+    "checkout_plate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendszám"
+          }
+        }
+      }
+    },
+    "checkout_summaryPrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fizetendő összeg"
+          }
+        }
+      }
+    },
     "checkout_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás megerősítése"
+          }
+        }
+      }
+    },
+    "checkout_vignetterType" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrica típusa"
+          }
+        }
+      }
     },
     "dashboard_button_buy" : {
       "localizations" : {
@@ -67,17 +164,7 @@
         }
       }
     },
-    "dashboard_loading" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Betöltés…"
-          }
-        }
-      }
-    },
-    "dashboard_title" : {
+    "dashboard_navigation_title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

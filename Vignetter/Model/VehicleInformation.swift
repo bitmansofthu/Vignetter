@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VehicleInformation {
+struct VehicleInformation: Hashable {
     
     let name: String
     let plate: String

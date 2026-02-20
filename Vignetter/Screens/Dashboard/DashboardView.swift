@@ -17,6 +17,7 @@ struct DashboardView: View {
         static let cariconSize: CGFloat = 24
         static let cardSpacing: CGFloat = 20
         static let containerPadding: CGFloat = 20
+        static let disabledOpacity = 0.7
     }
     
     // MARK: - Private Properties
@@ -50,8 +51,7 @@ struct DashboardView: View {
                 errorView(message: message)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .customNavigationTitle(title: "dashboard_title")
+        .customNavigationTitle(title: "dashboard_navigation_title")
         .task {
             if case .initial = viewModel.state {
                 await viewModel.fetchData()
@@ -77,7 +77,12 @@ struct DashboardView: View {
                     vignetteListTitle
                     vignetteList(vignettes: viewState.vignettes)
                     
-                    buyButton
+                    buyButton {
+                        buyAction(
+                            selectedVignette: viewModel.selectedVignette,
+                            vehicleInformation: viewState.vehicleInformation
+                        )
+                    }
                 }
                 .background {
                     Color.white
@@ -96,9 +101,6 @@ struct DashboardView: View {
     
     private var loading: some View {
         VStack() {
-            Text("dashboard_loading")
-                .font(.brand(size: .FontSize.extraSmall))
-                .foregroundStyle(.navy)
             ProgressView()
                 .progressViewStyle(.circular)
                 .tint(.navy)
@@ -181,11 +183,12 @@ struct DashboardView: View {
         )
     }
     
-    private var buyButton: some View {
+    private func buyButton(action: @escaping () -> Void) -> some View {
         RoundedButton(title: "dashboard_button_buy", style: .filled) {
-            coordinator.showCheckout()
+            action()
         }
         .disabled(viewModel.selectedVignette == nil)
+        .opacity(viewModel.selectedVignette == nil ? Constants.disabledOpacity : 1.0)
         .padding()
     }
     
@@ -232,6 +235,23 @@ struct DashboardView: View {
             Color.white
         }
         .cornerRadius(Constants.vehicleContainerRadius)
+    }
+    
+    private func buyAction(
+        selectedVignette: Vignette?,
+        vehicleInformation: VehicleInformation?
+    ) {
+        guard let selectedVignette = viewModel.selectedVignette,
+            let vehicleInformation else {
+            return
+        }
+        
+        coordinator.showCheckout(info:
+            CheckoutScreenInfo(
+                vehicleInformation: vehicleInformation,
+                vignette: selectedVignette
+            )
+        )
     }
 }
 

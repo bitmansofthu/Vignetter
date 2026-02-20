@@ -10,15 +10,22 @@ import SwiftUI
 @main
 struct VignetterApp: App {
     // TODO: DI
-    @StateObject var coordinator = MainCoordinator(apiClient: APIClient())
+    @StateObject var coordinator: MainCoordinator
+    
+    init() {
+        let apiClient = APIClient()
+        let coordinator = MainCoordinator(
+            getHighwayInfoUseCase: GetHighwayInfoUseCase(apiClient: apiClient),
+            getVehicleUseCase: GetVehicleUseCase(apiClient: apiClient),
+            sendOrderUseCase: SendOrderUseCase(apiClient: apiClient)
+        )
+        self._coordinator = StateObject(wrappedValue: coordinator)
+    }
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $coordinator.path) {
                 coordinator.startView()
-                    .toolbarBackground(.lime, for: .navigationBar)
-                    .toolbarColorScheme(.light, for: .navigationBar)
-                    .toolbarBackground(.visible, for: .navigationBar)
             }
         }
     }

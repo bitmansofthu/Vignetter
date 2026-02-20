@@ -77,7 +77,7 @@ class APIClient: APIClientProtocol {
                 throw APIClientError.encodingError(error)
             }
         }
-
+        
         let (data, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse else {

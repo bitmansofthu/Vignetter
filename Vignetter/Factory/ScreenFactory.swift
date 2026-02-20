@@ -25,8 +25,13 @@ class ScreenFactory {
         EmptyView()
     }
     
-    static func createCheckout(coordinator: DashboardCoordinatorProtocol) -> some View {
-        EmptyView()
+    static func createCheckout(
+        coordinator: CheckoutCoordinatorProtocol,
+        info: CheckoutScreenInfo,
+        sendOrderUseCase: SendOrderUseCaseProtocol
+    ) -> some View {
+        let viewModel = CheckoutViewModel(info: info, sendOrderUseCase: sendOrderUseCase)
+        return CheckoutView(coordinator: coordinator, viewModel: viewModel)
     }
     
     static func createSuccess(coordinator: DashboardCoordinatorProtocol) -> some View {

@@ -8,9 +8,14 @@
 struct HighwayInfo {
     
     let vignettes: [Vignette]
+    let counties: [CountyDTO]
     
-    init(vignettes: [Vignette]) {
+    init(
+        vignettes: [Vignette],
+        counties: [CountyDTO]
+    ) {
         self.vignettes = vignettes
+        self.counties = counties
     }
     
 }

@@ -10,8 +10,13 @@ import Combine
 import SwiftUI
 
 protocol DashboardCoordinatorProtocol {
-    func showCheckout()
+    func showCheckout(info: CheckoutScreenInfo)
     func showCountySelector()
+}
+
+protocol CheckoutCoordinatorProtocol {
+    func showSuccess()
+    func cancelScreen()
 }
 
 class MainCoordinator: ObservableObject {
@@ -20,15 +25,21 @@ class MainCoordinator: ObservableObject {
     
     enum Destination: Hashable {
         case countySelector
-        case checkout
+        case checkout(_ info: CheckoutScreenInfo)
     }
 
     private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
     private let getVehicleUseCase: GetVehicleUseCaseProtocol
+    private let sendOrderUseCase: SendOrderUseCaseProtocol
     
-    init(apiClient: APIClientProtocol) {
-        getHighwayInfoUseCase = GetHighwayInfoUseCase(apiClient: apiClient)
-        getVehicleUseCase = GetVehicleUseCase(apiClient: apiClient)
+    init(
+        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol,
+        getVehicleUseCase: GetVehicleUseCaseProtocol,
+        sendOrderUseCase: SendOrderUseCaseProtocol
+    ) {
+        self.getHighwayInfoUseCase = getHighwayInfoUseCase
+        self.getVehicleUseCase = getVehicleUseCase
+        self.sendOrderUseCase = sendOrderUseCase
     }
     
     func startView() -> some View {
@@ -37,10 +48,14 @@ class MainCoordinator: ObservableObject {
             getHighwayInfoUseCase: getHighwayInfoUseCase,
             getVehicleUseCase: getVehicleUseCase
         )
-        .navigationDestination(for: Destination.self) { destination in
+        .navigationDestination(for: Destination.self) { destination in            
             switch destination {
-            case .checkout:
-                ScreenFactory.createCheckout(coordinator: self)
+            case let .checkout(info):
+                ScreenFactory.createCheckout(
+                    coordinator: self,
+                    info: info,
+                    sendOrderUseCase: self.sendOrderUseCase
+                )
             case .countySelector:
                 ScreenFactory.createCountySelector(coordinator: self)
             }
@@ -59,8 +74,8 @@ class MainCoordinator: ObservableObject {
 }
 
 extension MainCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout() {
-        path.append(Destination.checkout)
+    func showCheckout(info: CheckoutScreenInfo) {
+        path.append(Destination.checkout(info))
     }
     
     func showCountySelector() {
@@ -68,12 +83,32 @@ extension MainCoordinator: DashboardCoordinatorProtocol {
     }
 }
 
+extension MainCoordinator: CheckoutCoordinatorProtocol {
+    func showSuccess() {
+        
+    }
+    
+    func cancelScreen() {
+        goBack()
+    }
+}
+
 class PreviewDashboardCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout() {
+    func showCheckout(info: CheckoutScreenInfo) {
         
     }
     
     func showCountySelector() {
+        
+    }
+}
+
+class PreviewCheckoutCoordinator: CheckoutCoordinatorProtocol {
+    func showSuccess() {
+        
+    }
+    
+    func cancelScreen() {
         
     }
 }
