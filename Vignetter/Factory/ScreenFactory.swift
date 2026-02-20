@@ -33,8 +33,4 @@ class ScreenFactory {
         let viewModel = CheckoutViewModel(info: info, sendOrderUseCase: sendOrderUseCase)
         return CheckoutView(coordinator: coordinator, viewModel: viewModel)
     }
-    
-    static func createSuccess(coordinator: DashboardCoordinatorProtocol) -> some View {
-        EmptyView()
-    }
 }

@@ -64,82 +64,87 @@ struct CheckoutView: View {
     }
     
     var successPhaseView: some View {
-        EmptyView()
+        CheckoutSuccessView(coordinator: coordinator)
     }
         
     func detailsView(info: CheckoutScreenInfo) -> some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                VStack(spacing: Constants.spacing) {
+        VStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    VStack(spacing: Constants.spacing) {
+                        HStack {
+                            Text("checkout_title")
+                                .font(.brand(size: .FontSize.extraLarge, weight: .bold))
+                                .foregroundStyle(.navy)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Text("checkout_plate")
+                                .font(.brand(size: .FontSize.medium))
+                                .foregroundStyle(.navy)
+                            Spacer()
+                            Text(info.vehicleInformation.plate)
+                                .font(.brand(size: .FontSize.medium))
+                                .foregroundStyle(.navy)
+                        }
+                        
+                        HStack {
+                            Text("checkout_vignetterType")
+                                .font(.brand(size: .FontSize.medium))
+                                .foregroundStyle(.navy)
+                            Spacer()
+                            Text(info.vignette.name)
+                                .font(.brand(size: .FontSize.medium))
+                                .foregroundStyle(.navy)
+                        }
+                    }
+                    .padding([.leading, .trailing], 5)
+                    
+                    Divider()
+                        .padding([.top, .bottom])
+                    
                     HStack {
-                        Text("checkout_title")
-                            .font(.brand(size: .FontSize.extraLarge, weight: .bold))
-                            .foregroundStyle(.navy)
-                            .lineLimit(1)
+                        VStack(
+                            alignment: .leading,
+                            spacing: 5
+                        ) {
+                            Text("checkout_summaryPrice")
+                                .font(.brand(size: .FontSize.medium, weight: .bold))
+                                .foregroundStyle(.navy)
+                            Text("\(info.summaryPrice) Ft")
+                                .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
+                                .foregroundStyle(.navy)
+                        }
                         
                         Spacer()
                     }
+                    .padding([.bottom])
                     
-                    Divider()
-                    
-                    HStack {
-                        Text("checkout_plate")
-                            .font(.brand(size: .FontSize.medium))
-                            .foregroundStyle(.navy)
-                        Spacer()
-                        Text(info.vehicleInformation.plate)
-                            .font(.brand(size: .FontSize.medium))
-                            .foregroundStyle(.navy)
-                    }
-                    
-                    HStack {
-                        Text("checkout_vignetterType")
-                            .font(.brand(size: .FontSize.medium))
-                            .foregroundStyle(.navy)
-                        Spacer()
-                        Text(info.vignette.name)
-                            .font(.brand(size: .FontSize.medium))
-                            .foregroundStyle(.navy)
+                    if isSendingOrder {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .tint(.navy)
+                            Spacer()
+                        }
                     }
                 }
-                .padding([.leading, .trailing], 5)
-                
-                Divider()
-                    .padding([.top, .bottom])
-                
-                HStack {
-                    VStack(
-                        alignment: .leading,
-                        spacing: 5
-                    ) {
-                        Text("checkout_summaryPrice")
-                            .font(.brand(size: .FontSize.medium, weight: .bold))
-                            .foregroundStyle(.navy)
-                        Text("\(info.summaryPrice) Ft")
-                            .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
-                            .foregroundStyle(.navy)
-                    }
-                    
-                    Spacer()
-                }
-                .padding([.bottom])
-                
-                if isSendingOrder {
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .tint(.navy)
-                        Spacer()
-                    }
-                } else {
-                    VStack(spacing: Constants.spacing) {
-                        buyButton
-                        cancelButton
-                    }
-                }
+                .padding(20)
             }
-            .padding(20)
+            
+            if !isSendingOrder {
+                VStack(spacing: Constants.spacing) {
+                    buyButton
+                    cancelButton
+                }
+                .padding()
+            }
         }
     }
     

@@ -54,6 +54,16 @@
         }
       }
     },
+    "checkout_done_button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendben"
+          }
+        }
+      }
+    },
     "checkout_general_error" : {
       "localizations" : {
         "en" : {
@@ -170,6 +180,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vignetter"
+          }
+        }
+      }
+    },
+    "success_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A matricákat sikeresen kifizetted!"
           }
         }
       }

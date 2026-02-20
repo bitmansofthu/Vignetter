@@ -15,8 +15,8 @@ protocol DashboardCoordinatorProtocol {
 }
 
 protocol CheckoutCoordinatorProtocol {
-    func showSuccess()
     func cancelScreen()
+    func goToDashboard()
 }
 
 class MainCoordinator: ObservableObject {
@@ -31,6 +31,9 @@ class MainCoordinator: ObservableObject {
     private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
     private let getVehicleUseCase: GetVehicleUseCaseProtocol
     private let sendOrderUseCase: SendOrderUseCaseProtocol
+    
+    // This can be used to reset the root view StateObject
+    private var startID: UUID = UUID()
     
     init(
         getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol,
@@ -48,7 +51,7 @@ class MainCoordinator: ObservableObject {
             getHighwayInfoUseCase: getHighwayInfoUseCase,
             getVehicleUseCase: getVehicleUseCase
         )
-        .navigationDestination(for: Destination.self) { destination in            
+        .navigationDestination(for: Destination.self) { destination in
             switch destination {
             case let .checkout(info):
                 ScreenFactory.createCheckout(
@@ -60,6 +63,7 @@ class MainCoordinator: ObservableObject {
                 ScreenFactory.createCountySelector(coordinator: self)
             }
         }
+        .id(startID)
     }
     
     func goBack() {
@@ -68,8 +72,9 @@ class MainCoordinator: ObservableObject {
         }
     }
     
-    func clearPath() {
+    func reset() {
         path = NavigationPath()
+        startID = UUID()
     }
 }
 
@@ -84,14 +89,16 @@ extension MainCoordinator: DashboardCoordinatorProtocol {
 }
 
 extension MainCoordinator: CheckoutCoordinatorProtocol {
-    func showSuccess() {
-        
-    }
-    
     func cancelScreen() {
         goBack()
     }
+    
+    func goToDashboard() {
+        reset()
+    }
 }
+
+// MARK: - Previews
 
 class PreviewDashboardCoordinator: DashboardCoordinatorProtocol {
     func showCheckout(info: CheckoutScreenInfo) {
@@ -103,12 +110,12 @@ class PreviewDashboardCoordinator: DashboardCoordinatorProtocol {
     }
 }
 
-class PreviewCheckoutCoordinator: CheckoutCoordinatorProtocol {
-    func showSuccess() {
+class PreviewCheckoutCoordinator: CheckoutCoordinatorProtocol {    
+    func cancelScreen() {
         
     }
     
-    func cancelScreen() {
+    func goToDashboard() {
         
     }
 }
