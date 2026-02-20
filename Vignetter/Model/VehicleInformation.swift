@@ -29,3 +29,9 @@ struct VehicleInformation: Hashable {
     }
     
 }
+
+extension VehicleInformation {
+    static var preview: Self {
+        .init(name: "Sample", plate: "ABC-123", vignetteType: "D1", type: "CAR")
+    }
+}

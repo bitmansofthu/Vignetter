@@ -75,12 +75,18 @@ class DashboardViewModel: ObservableObject {
 
 #if DEBUG
 extension DashboardViewModel {
-    static let previewLoading: DashboardViewModel = {
+    static let preview: DashboardViewModel = {
         return DashboardViewModel(
-            state: .loading,
+            state: .loaded(.preview),
             getHighwayInfoUseCase: GetHighwayInfoUseCasePreview(),
             getVehicleUseCase: GetVehicleUseCasePreview()
         )
     }()
+}
+
+extension DashboardViewState {
+    static var preview: DashboardViewState {
+        .init(vignettes: [.preview], yearlyCountyVignette: .preview, vehicleInformation: .preview)
+    }
 }
 #endif

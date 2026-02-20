@@ -114,6 +114,16 @@
         }
       }
     },
+    "checkout_trxfee" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendszerhasználati díj"
+          }
+        }
+      }
+    },
     "checkout_vignetterType" : {
       "localizations" : {
         "en" : {

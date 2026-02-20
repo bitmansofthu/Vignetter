@@ -247,7 +247,7 @@ struct DashboardView: View {
         }
         
         coordinator.showCheckout(info:
-            CheckoutScreenInfo(
+            OrderInfo(
                 vehicleInformation: vehicleInformation,
                 vignette: selectedVignette
             )
@@ -257,5 +257,5 @@ struct DashboardView: View {
 
 #Preview {
     let coordinator = PreviewDashboardCoordinator()
-    DashboardView(coordinator: coordinator, viewModel: .previewLoading)
+    DashboardView(coordinator: coordinator, viewModel: .preview)
 }

@@ -27,7 +27,7 @@ class ScreenFactory {
     
     static func createCheckout(
         coordinator: CheckoutCoordinatorProtocol,
-        info: CheckoutScreenInfo,
+        info: OrderInfo,
         sendOrderUseCase: SendOrderUseCaseProtocol
     ) -> some View {
         let viewModel = CheckoutViewModel(info: info, sendOrderUseCase: sendOrderUseCase)

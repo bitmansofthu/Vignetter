@@ -8,18 +8,8 @@
 import Foundation
 import Combine
 
-struct CheckoutScreenInfo: Hashable {
-    let vehicleInformation: VehicleInformation
-    let vignette: Vignette
-    
-    var summaryPrice: Int {
-        // TODO: update for selected countries
-        vignette.price
-    }
-}
-
 enum CheckoutViewState {
-    case info(CheckoutScreenInfo)
+    case info(OrderInfo)
     case success
 }
 
@@ -34,12 +24,12 @@ class CheckoutViewModel: ObservableObject {
     // MARK: - Private Properties
     
     let sendOrderUseCase: SendOrderUseCaseProtocol
-    let info: CheckoutScreenInfo
+    let info: OrderInfo
     
     // MARK: - Lifecycle
     
     init(
-        info: CheckoutScreenInfo,
+        info: OrderInfo,
         sendOrderUseCase: SendOrderUseCaseProtocol
     ) {
         self.info = info
@@ -65,3 +55,11 @@ class CheckoutViewModel: ObservableObject {
     }
     
 }
+
+#if DEBUG
+extension CheckoutViewModel {
+    static let preview: CheckoutViewModel = {
+        CheckoutViewModel(info: .preview, sendOrderUseCase: SendOrderUseCasePreview())
+    }()
+}
+#endif

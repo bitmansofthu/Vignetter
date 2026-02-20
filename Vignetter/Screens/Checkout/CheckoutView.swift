@@ -43,7 +43,7 @@ struct CheckoutView: View {
         }
     }
     
-    func infoPhaseView(info: CheckoutScreenInfo) -> some View {
+    func infoPhaseView(info: OrderInfo) -> some View {
         ZStack {
             Color.grey50
                 .ignoresSafeArea()
@@ -67,7 +67,7 @@ struct CheckoutView: View {
         CheckoutSuccessView(coordinator: coordinator)
     }
         
-    func detailsView(info: CheckoutScreenInfo) -> some View {
+    func detailsView(info: OrderInfo) -> some View {
         VStack {
             ScrollView {
                 VStack(spacing: 0) {
@@ -102,6 +102,24 @@ struct CheckoutView: View {
                                 .font(.brand(size: .FontSize.medium))
                                 .foregroundStyle(.navy)
                         }
+                        
+                        if !info.counties.isEmpty {
+                            Divider()
+                                .padding([.top, .bottom])
+                            
+                            selectedCounties(info: info)
+                        }
+                        
+                        HStack {
+                            Text("checkout_trxfee")
+                                .font(.brand(size: .FontSize.small))
+                                .foregroundStyle(.navy)
+                            Spacer()
+                            Text("\(info.vignette.trxFee) Ft")
+                                .font(.brand(size: .FontSize.medium))
+                                .foregroundStyle(.navy)
+                        }
+                        .padding([.top])
                     }
                     .padding([.leading, .trailing], 5)
                     
@@ -148,6 +166,33 @@ struct CheckoutView: View {
         }
     }
     
+    func infoRow(title: LocalizedStringKey, value: String) -> some View {
+        HStack {
+            Text(title)
+                .font(.brand(size: .FontSize.medium))
+                .foregroundStyle(.navy)
+            Spacer()
+            Text(value)
+                .font(.brand(size: .FontSize.medium))
+                .foregroundStyle(.navy)
+        }
+    }
+    
+    func selectedCounties(info: OrderInfo) -> some View {
+        ForEach(info.counties) { county in
+            HStack {
+                Text(county.name)
+                    .font(.brand(size: .FontSize.medium, weight: .bold))
+                    .foregroundStyle(.navy)
+                Spacer()
+                Text("\(info.vignette.price) Ft")
+                    .font(.brand(size: .FontSize.medium))
+                    .foregroundStyle(.navy)
+            }
+            .padding([.bottom], 10)
+        }
+    }
+    
     var buyButton: some View {
         RoundedButton(title: "checkout_buy", style: .filled) {
             Task {
@@ -164,4 +209,9 @@ struct CheckoutView: View {
         }
     }
         
+}
+
+#Preview {
+    let coordinator = PreviewCheckoutCoordinator()
+    CheckoutView(coordinator: coordinator, viewModel: .preview)
 }

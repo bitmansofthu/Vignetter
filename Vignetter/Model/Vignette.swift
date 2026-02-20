@@ -39,3 +39,9 @@ struct Vignette: Hashable {
         }
     }
 }
+
+extension Vignette {
+    static var preview: Vignette {
+        .init(type: .day, price: 1000, trxFee: 200)
+    }
+}

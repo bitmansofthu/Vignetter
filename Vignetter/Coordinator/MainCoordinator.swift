@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 protocol DashboardCoordinatorProtocol {
-    func showCheckout(info: CheckoutScreenInfo)
+    func showCheckout(info: OrderInfo)
     func showCountySelector()
 }
 
@@ -19,13 +19,18 @@ protocol CheckoutCoordinatorProtocol {
     func goToDashboard()
 }
 
+protocol CountySelectorCoordinatorProtocol {
+    func cancelScreen()
+    func showCheckout(info: OrderInfo)
+}
+
 class MainCoordinator: ObservableObject {
     
     @Published var path: NavigationPath = NavigationPath()
     
     enum Destination: Hashable {
-        case countySelector
-        case checkout(_ info: CheckoutScreenInfo)
+        case countySelector(_ info: OrderInfo)
+        case checkout(_ info: OrderInfo)
     }
 
     private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
@@ -79,7 +84,7 @@ class MainCoordinator: ObservableObject {
 }
 
 extension MainCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout(info: CheckoutScreenInfo) {
+    func showCheckout(info: OrderInfo) {
         path.append(Destination.checkout(info))
     }
     
@@ -101,7 +106,7 @@ extension MainCoordinator: CheckoutCoordinatorProtocol {
 // MARK: - Previews
 
 class PreviewDashboardCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout(info: CheckoutScreenInfo) {
+    func showCheckout(info: OrderInfo) {
         
     }
     
@@ -116,6 +121,16 @@ class PreviewCheckoutCoordinator: CheckoutCoordinatorProtocol {
     }
     
     func goToDashboard() {
+        
+    }
+}
+
+class PreviewCountrySelectorCoordinator: CountySelectorCoordinatorProtocol {
+    func cancelScreen() {
+        
+    }
+    
+    func showCheckout(info: OrderInfo) {
         
     }
 }
