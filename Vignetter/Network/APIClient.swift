@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 enum APIClientError: Error, LocalizedError {
     case invalidURL
@@ -68,11 +69,18 @@ class APIClient: APIClientProtocol {
 
         var request = URLRequest(url: url)
         request.httpMethod = type.value
+        
+        Logger.network.info("⬆️ Sending request to url: \(url.absoluteString)")
 
         if case let .post(payload) = type {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
-                request.httpBody = try encoder.encode(payload)
+                let data = try encoder.encode(payload)
+                Logger.network.debug("POST JSON")
+                #if DEBUG
+                Logger.logJSON(data)
+                #endif
+                request.httpBody = data
             } catch {
                 throw APIClientError.encodingError(error)
             }
@@ -89,9 +97,28 @@ class APIClient: APIClientProtocol {
         }
 
         do {
+            Logger.network.debug("⬇️ Response JSON")
+            #if DEBUG
+            Logger.logJSON(data)
+            #endif
             return try decoder.decode(Response.self, from: data)
         } catch {
             throw APIClientError.decodingError(error)
+        }
+    }
+}
+
+fileprivate extension Logger {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+    static let network = Logger(subsystem: subsystem, category: "Network")
+
+    static func logJSON(_ data: Data, prefix: String = "Payload") {
+        if let object = try? JSONSerialization.jsonObject(with: data, options: []),
+           let prettyData = try? JSONSerialization.data(withJSONObject: object, options: .prettyPrinted),
+           let prettyString = String(data: prettyData, encoding: .utf8) {
+            network.debug("\(prefix):\n\(prettyString)")
+        } else if let fallbackString = String(data: data, encoding: .utf8) {
+            network.error("Failed to format JSON for \(prefix). Raw content:\n\(fallbackString)")
         }
     }
 }

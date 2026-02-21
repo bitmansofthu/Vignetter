@@ -13,6 +13,14 @@ enum VignetteType: String {
     case week = "WEEK"
     case month = "MONTH"
     case year = "YEAR"
+    case county = "YEAR_"
+    
+    static func from(rawString: String) -> VignetteType? {
+        if rawString.hasPrefix(VignetteType.county.rawValue) {
+            return .county
+        }
+        return VignetteType(rawValue: rawString)
+    }
 }
 
 struct Vignette: Hashable {
@@ -36,6 +44,8 @@ struct Vignette: Hashable {
             return "vignette_type_month"
         case .year:
             return "vignette_type_year"
+        case .county:
+            return "vignette_type_county"
         }
     }
 }

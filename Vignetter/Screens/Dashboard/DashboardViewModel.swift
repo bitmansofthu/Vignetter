@@ -51,11 +51,13 @@ class DashboardViewModel: ObservableObject {
             let info = try await getHighwayInfoUseCase.execute()
             let vehicleInformation = try await getVehicleUseCase.execute()
             
+            // Filter yearly vignette, as it is not available in the designs.
             let countryVignettes = info.vignettes.filter {
-                $0.type != .year
+                $0.type != .year && $0.type != .county
             }
+            
             let yearlyCountyVignette = info.vignettes.first {
-                $0.type == .year
+                $0.type == .county
             }
             
             self.state = .loaded(DashboardViewState(

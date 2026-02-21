@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SendOrderUseCaseProtocol {
-    func execute(vignettes: [Vignette], vehicleInformation: VehicleInformation) async throws
+    func execute(vignette: Vignette, counties: [CountyDTO], vehicleInformation: VehicleInformation) async throws
 }
 
 enum SendOrderError: Error, LocalizedError {
@@ -28,15 +28,27 @@ struct SendOrderUseCase: SendOrderUseCaseProtocol {
         self.apiClient = apiClient
     }
     
-    func execute(vignettes: [Vignette], vehicleInformation: VehicleInformation) async throws {
+    func execute(
+        vignette: Vignette,
+        counties: [CountyDTO],
+        vehicleInformation: VehicleInformation
+    ) async throws {
         var orders: [PostOrder] = []
         
-        for vignette in vignettes {
-            orders.append(.init(
+        if vignette.type == .county {
+            for county in counties {
+                orders.append(.init(
+                    type: county.id,
+                    category: vehicleInformation.type,
+                    cost: Float(vignette.price))
+                )
+            }
+        } else {
+            orders = [PostOrder(
                 type: vignette.type.rawValue,
                 category: vehicleInformation.type,
                 cost: Float(vignette.price))
-            )
+            ]
         }
         
         let response: OrderResponse = try await apiClient.request(
@@ -51,7 +63,7 @@ struct SendOrderUseCase: SendOrderUseCaseProtocol {
 }
 
 struct SendOrderUseCasePreview: SendOrderUseCaseProtocol {
-    func execute(vignettes: [Vignette], vehicleInformation: VehicleInformation) async throws {
+    func execute(vignette: Vignette, counties: [CountyDTO], vehicleInformation: VehicleInformation) async throws {
         
     }
 }

@@ -38,7 +38,7 @@ class HighwayInfoRepository: HighwayInfoRepositoryProtocol {
         var vignettes = [Vignette]()
         for vignette in response.payload.highwayVignettes {
             if let vignetteRawType = vignette.vignetteType.first,
-                let vignetteType = VignetteType(rawValue: vignetteRawType) {
+               let vignetteType = VignetteType.from(rawString: vignetteRawType) {
                 vignettes.append(
                     Vignette(
                         type: vignetteType,

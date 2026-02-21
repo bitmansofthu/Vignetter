@@ -48,6 +48,10 @@ class CountySelectorViewModel: ObservableObject {
     }
     
     func validateSelectedCounties() -> Bool {
+        guard selectedCounties.count > 1 else {
+            return true
+        }
+        
         let selectedMapInfoCounties = selectedCounties.compactMap { $0.mapInfo }
         var allNeighbours = Set<CountyMapInfo>()
         

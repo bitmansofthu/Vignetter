@@ -22,8 +22,8 @@ class CheckoutViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     var summaryPrice: Int {
-        if info.vignette.type == .year {
-            return info.counties.count * info.vignette.price + info.vignette.trxFee
+        if info.vignette.type == .county {
+            return info.counties.count * (info.vignette.trxFee + info.vignette.price)
         } else {
             return info.vignette.price + info.vignette.trxFee
         }
@@ -48,7 +48,8 @@ class CheckoutViewModel: ObservableObject {
     func sendOrder() async {
         do {
             try await sendOrderUseCase.execute(
-                vignettes: [info.vignette],
+                vignette: info.vignette,
+                counties: info.counties,
                 vehicleInformation: info.vehicleInformation
             )
 

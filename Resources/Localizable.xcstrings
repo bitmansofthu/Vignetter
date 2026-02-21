@@ -284,6 +284,16 @@
         }
       }
     },
+    "vignette_type_county" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei"
+          }
+        }
+      }
+    },
     "vignette_type_day" : {
       "localizations" : {
         "en" : {
@@ -319,7 +329,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Éves vármegyei"
+            "value" : "Éves országos matrica"
           }
         }
       }
