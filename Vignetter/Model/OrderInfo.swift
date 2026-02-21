@@ -13,6 +13,9 @@ struct OrderInfo: Hashable {
 
 extension OrderInfo {
     static var preview: Self {
-        .init(vehicleInformation: .preview, vignette: .preview)
+        .init(vehicleInformation: .preview, vignette: .preview, counties: [
+            .init(id: "YEAR-11", name: "Bács-Kiskun"),
+            .init(id: "YEAR-12", name: "Baranya")
+        ])
     }
 }

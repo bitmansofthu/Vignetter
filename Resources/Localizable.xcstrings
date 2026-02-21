@@ -14,6 +14,16 @@
         }
       }
     },
+    "button_next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tovább"
+          }
+        }
+      }
+    },
     "button_retry" : {
       "localizations" : {
         "en" : {
@@ -134,14 +144,75 @@
         }
       }
     },
+    "countySelector_fetchError_message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A vármegye lista nem elérhető, próbálkozzon később."
+          }
+        }
+      }
+    },
+    "countySelector_fetchError_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba"
+          }
+        }
+      }
+    },
     "countySelector_navigation_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vignetter"
+          }
+        }
+      }
     },
     "countySelector_summaryPrice" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fizetendő összeg"
+          }
+        }
+      }
     },
     "countySelector_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei matricák"
+          }
+        }
+      }
+    },
+    "countySelector_validationError_message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak egymást érintő vármegyék választhatóak ki!"
+          }
+        }
+      }
+    },
+    "countySelector_validationError_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Figyelmeztetés"
+          }
+        }
+      }
     },
     "dashboard_button_buy" : {
       "localizations" : {

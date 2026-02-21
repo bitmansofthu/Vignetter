@@ -10,7 +10,6 @@ import Combine
 class CountySelectorViewModel: ObservableObject {
     
     @Published var showFetchCountiesError: Bool = false
-    @Published var showSelectionError: Bool = false
     @Published var counties: [CountyDTO] = []
     @Published var selectedCounties: Set<CountyDTO> = []
     
@@ -18,7 +17,8 @@ class CountySelectorViewModel: ObservableObject {
         selectedCounties.count * orderInfo.vignette.price
     }
     
-    private let orderInfo: OrderInfo
+    var orderInfo: OrderInfo
+    
     private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
     
     init(
@@ -38,12 +38,24 @@ class CountySelectorViewModel: ObservableObject {
         }
     }
     
-    func toggleSelectCounty(_ county: CountyDTO) {
-        if selectedCounties.contains(county) {
-            selectedCounties.remove(county)
-        } else {
+    func selectCounty(select: Bool, county: CountyDTO) {
+        if select {
             selectedCounties.insert(county)
+        } else {
+            selectedCounties.remove(county)
         }
+        orderInfo.counties = Array(selectedCounties)
+    }
+    
+    func validateSelectedCounties() -> Bool {
+        let selectedMapInfoCounties = selectedCounties.compactMap { $0.mapInfo }
+        var allNeighbours = Set<CountyMapInfo>()
+        
+        for county in selectedMapInfoCounties {
+            allNeighbours.formUnion(county.neighbours)
+        }
+        
+        return allNeighbours.intersection(Set(selectedMapInfoCounties)).count == selectedMapInfoCounties.count
     }
 }
 

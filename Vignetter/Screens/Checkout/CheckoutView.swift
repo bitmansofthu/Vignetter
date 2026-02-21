@@ -105,7 +105,6 @@ struct CheckoutView: View {
                         
                         if !info.counties.isEmpty {
                             Divider()
-                                .padding([.top, .bottom])
                             
                             selectedCounties(info: info)
                         }
@@ -119,7 +118,6 @@ struct CheckoutView: View {
                                 .font(.brand(size: .FontSize.medium))
                                 .foregroundStyle(.navy)
                         }
-                        .padding([.top])
                     }
                     .padding([.leading, .trailing], 5)
                     
@@ -189,7 +187,6 @@ struct CheckoutView: View {
                     .font(.brand(size: .FontSize.medium))
                     .foregroundStyle(.navy)
             }
-            .padding([.bottom], 10)
         }
     }
     

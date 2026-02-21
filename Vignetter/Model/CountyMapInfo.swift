@@ -122,5 +122,10 @@ enum CountyMapInfo: String, CaseIterable, Identifiable {
             return [.vas, .veszprem, .somogy]
         }
     }
-    
+}
+
+extension CountyDTO {
+    var mapInfo: CountyMapInfo? {
+        CountyMapInfo.allCases.first { $0.id == self.id }
+    }
 }
