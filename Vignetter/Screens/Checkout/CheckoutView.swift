@@ -98,7 +98,7 @@ struct CheckoutView: View {
                                 .font(.brand(size: .FontSize.medium))
                                 .foregroundStyle(.navy)
                             Spacer()
-                            Text(info.vignette.name)
+                            Text(info.vignette.type.name)
                                 .font(.brand(size: .FontSize.medium))
                                 .foregroundStyle(.navy)
                         }

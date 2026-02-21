@@ -130,7 +130,6 @@ struct DashboardView: View {
                 .foregroundStyle(.navy)
                 .lineLimit(1)
             Text(message)
-                .lineLimit(.zero)
                 .font(.brand(size: .FontSize.medium, weight: .regular))
                 .foregroundStyle(.navy)
             
@@ -180,7 +179,7 @@ struct DashboardView: View {
                         .foregroundStyle(selectedVignette == vignette ? .navy : .white)
                 }
             
-            Text(vignette.name)
+            Text(vignette.type.name)
                 .font(.brand(size: .FontSize.medium, weight: .regular))
                 .foregroundStyle(.navy)
                 .lineLimit(1)

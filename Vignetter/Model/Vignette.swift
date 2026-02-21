@@ -21,21 +21,9 @@ enum VignetteType: String {
         }
         return VignetteType(rawValue: rawString)
     }
-}
-
-struct Vignette: Hashable {
-    let type: VignetteType
-    let price: Int
-    let trxFee: Int
-    
-    init(type: VignetteType, price: Int, trxFee: Int) {
-        self.type = type
-        self.price = price
-        self.trxFee = trxFee
-    }
     
     var name: LocalizedStringKey {
-        switch type {
+        switch self {
         case .day:
             return "vignette_type_day"
         case .week:
@@ -47,6 +35,18 @@ struct Vignette: Hashable {
         case .county:
             return "vignette_type_county"
         }
+    }
+}
+
+struct Vignette: Hashable {
+    let type: VignetteType
+    let price: Int
+    let trxFee: Int
+    
+    init(type: VignetteType, price: Int, trxFee: Int) {
+        self.type = type
+        self.price = price
+        self.trxFee = trxFee
     }
 }
 
