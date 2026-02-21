@@ -9,21 +9,6 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol DashboardCoordinatorProtocol {
-    func showCheckout(info: OrderInfo)
-    func showCountySelector()
-}
-
-protocol CheckoutCoordinatorProtocol {
-    func cancelScreen()
-    func goToDashboard()
-}
-
-protocol CountySelectorCoordinatorProtocol {
-    func cancelScreen()
-    func showCheckout(info: OrderInfo)
-}
-
 class MainCoordinator: ObservableObject {
     
     @Published var path: NavigationPath = NavigationPath()
@@ -64,8 +49,12 @@ class MainCoordinator: ObservableObject {
                     info: info,
                     sendOrderUseCase: self.sendOrderUseCase
                 )
-            case .countySelector:
-                ScreenFactory.createCountySelector(coordinator: self)
+            case let .countySelector(info):
+                ScreenFactory.createCountySelector(
+                    coordinator: self,
+                    info: info,
+                    getHighwayInfoUseCase: self.getHighwayInfoUseCase
+                )
             }
         }
         .id(startID)
@@ -80,57 +69,5 @@ class MainCoordinator: ObservableObject {
     func reset() {
         path = NavigationPath()
         startID = UUID()
-    }
-}
-
-extension MainCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout(info: OrderInfo) {
-        path.append(Destination.checkout(info))
-    }
-    
-    func showCountySelector() {
-        
-    }
-}
-
-extension MainCoordinator: CheckoutCoordinatorProtocol {
-    func cancelScreen() {
-        goBack()
-    }
-    
-    func goToDashboard() {
-        reset()
-    }
-}
-
-// MARK: - Previews
-
-class PreviewDashboardCoordinator: DashboardCoordinatorProtocol {
-    func showCheckout(info: OrderInfo) {
-        
-    }
-    
-    func showCountySelector() {
-        
-    }
-}
-
-class PreviewCheckoutCoordinator: CheckoutCoordinatorProtocol {    
-    func cancelScreen() {
-        
-    }
-    
-    func goToDashboard() {
-        
-    }
-}
-
-class PreviewCountrySelectorCoordinator: CountySelectorCoordinatorProtocol {
-    func cancelScreen() {
-        
-    }
-    
-    func showCheckout(info: OrderInfo) {
-        
     }
 }

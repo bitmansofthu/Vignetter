@@ -9,13 +9,16 @@ import SwiftUI
 
 @main
 struct VignetterApp: App {
-    // TODO: DI
     @StateObject var coordinator: MainCoordinator
     
     init() {
+        // TODO: DI
         let apiClient = APIClient()
+        let highwayInfoRepository = HighwayInfoRepository(apiClient: apiClient)
         let coordinator = MainCoordinator(
-            getHighwayInfoUseCase: GetHighwayInfoUseCase(apiClient: apiClient),
+            getHighwayInfoUseCase: GetHighwayInfoUseCase(
+                highwayInfoRepository: highwayInfoRepository
+            ),
             getVehicleUseCase: GetVehicleUseCase(apiClient: apiClient),
             sendOrderUseCase: SendOrderUseCase(apiClient: apiClient)
         )

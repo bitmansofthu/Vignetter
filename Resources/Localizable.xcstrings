@@ -134,6 +134,15 @@
         }
       }
     },
+    "countySelector_navigation_title" : {
+
+    },
+    "countySelector_summaryPrice" : {
+
+    },
+    "countySelector_title" : {
+
+    },
     "dashboard_button_buy" : {
       "localizations" : {
         "en" : {

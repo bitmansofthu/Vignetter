@@ -78,10 +78,15 @@ struct DashboardView: View {
                     vignetteList(vignettes: viewState.vignettes)
                     
                     buyButton {
-                        buyAction(
-                            selectedVignette: viewModel.selectedVignette,
-                            vehicleInformation: viewState.vehicleInformation
+                        guard let selectedVignette = viewModel.selectedVignette,
+                              let vehicleInformation = viewState.vehicleInformation else {
+                            return
+                        }
+                        let orderInfo = OrderInfo(
+                            vehicleInformation: vehicleInformation,
+                            vignette: selectedVignette
                         )
+                        coordinator.dashboardAction(.showCheckout(orderInfo))
                     }
                 }
                 .background {
@@ -91,8 +96,18 @@ struct DashboardView: View {
                 .padding([.leading, .trailing], Constants.containerPadding)
                 
                 if viewState.yearlyCountyVignette != nil {
-                    countySelector
-                        .padding([.leading, .trailing], Constants.containerPadding)
+                    countySelector {
+                        guard let selectedVignette = viewState.yearlyCountyVignette,
+                              let vehicleInformation = viewState.vehicleInformation else {
+                            return
+                        }
+                        let orderInfo = OrderInfo(
+                            vehicleInformation: vehicleInformation,
+                            vignette: selectedVignette
+                        )
+                        coordinator.dashboardAction(.showCountySelector(orderInfo))
+                    }
+                    .padding([.leading, .trailing], Constants.containerPadding)
                 }
             }
             .padding(.top, Constants.containerPadding)
@@ -192,24 +207,24 @@ struct DashboardView: View {
         .padding()
     }
     
-    private var countySelector: some View {
-        HStack {
-            Text("dashboard_button_countySelector")
-                .font(.brand(size: .FontSize.large, weight: .bold))
-                .foregroundStyle(.navy)
-                .lineLimit(1)
-                .padding()
-            Spacer()
-            Image("chevronRight")
-                .padding()
-        }
-        .cornerRadius(Constants.containerRadius)
-        .background {
-            Color.white
-        }
-        .cornerRadius(Constants.containerRadius)
-        .onTapGesture {
-            coordinator.showCountySelector()
+    private func countySelector(action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            HStack {
+                Text("dashboard_button_countySelector")
+                    .font(.brand(size: .FontSize.large, weight: .bold))
+                    .foregroundStyle(.navy)
+                    .lineLimit(1)
+                    .padding()
+                Spacer()
+                Image("chevronRight")
+                    .padding()
+            }
+            .background {
+                Color.white
+            }
+            .cornerRadius(Constants.containerRadius)
         }
     }
     
@@ -235,23 +250,6 @@ struct DashboardView: View {
             Color.white
         }
         .cornerRadius(Constants.vehicleContainerRadius)
-    }
-    
-    private func buyAction(
-        selectedVignette: Vignette?,
-        vehicleInformation: VehicleInformation?
-    ) {
-        guard let selectedVignette = viewModel.selectedVignette,
-            let vehicleInformation else {
-            return
-        }
-        
-        coordinator.showCheckout(info:
-            OrderInfo(
-                vehicleInformation: vehicleInformation,
-                vignette: selectedVignette
-            )
-        )
     }
 }
 

@@ -9,11 +9,6 @@ struct OrderInfo: Hashable {
     let vehicleInformation: VehicleInformation
     let vignette: Vignette
     var counties: [CountyDTO] = []
-    
-    var summaryPrice: Int {
-        // TODO: update for selected countries
-        vignette.price + vignette.trxFee
-    }
 }
 
 extension OrderInfo {

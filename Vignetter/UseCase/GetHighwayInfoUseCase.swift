@@ -11,36 +11,14 @@ protocol GetHighwayInfoUseCaseProtocol {
 
 struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
     
-    let apiClient: APIClientProtocol
+    let highwayInfoRepository: HighwayInfoRepositoryProtocol
     
-    init(apiClient: APIClientProtocol) {
-        self.apiClient = apiClient
+    init(highwayInfoRepository: HighwayInfoRepositoryProtocol) {
+        self.highwayInfoRepository = highwayInfoRepository
     }
     
     func execute() async throws -> HighwayInfo {
-        let response: HighwayInfoResponse = try await apiClient.request(
-            type: .get,
-            url: "\(AppConfig.shared.baseUrl)/highway/info"
-        )
-        
-        var vignettes = [Vignette]()
-        for vignette in response.payload.highwayVignettes {
-            if let vignetteRawType = vignette.vignetteType.first,
-                let vignetteType = VignetteType(rawValue: vignetteRawType) {
-                vignettes.append(
-                    Vignette(
-                        type: vignetteType,
-                        price: vignette.cost,
-                        trxFee: vignette.trxFee
-                    )
-                )
-            }
-        }
-        
-        return HighwayInfo(
-            vignettes: vignettes,
-            counties: response.payload.counties
-        )
+        try await highwayInfoRepository.getHighwayInfo()
     }
     
 }
@@ -48,7 +26,7 @@ struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
 struct GetHighwayInfoUseCasePreview: GetHighwayInfoUseCaseProtocol {
     
     func execute() async throws -> HighwayInfo {
-        HighwayInfo(vignettes: [], counties: [])
+        .preview
     }
     
 }

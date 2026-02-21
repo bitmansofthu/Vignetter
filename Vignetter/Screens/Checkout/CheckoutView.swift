@@ -54,7 +54,7 @@ struct CheckoutView: View {
             title: "checkout_navigation_title",
             showBackButton: !isSendingOrder
         ) {
-            self.coordinator.cancelScreen()
+            self.coordinator.checkoutAction(.cancelScreen)
         }
         .alert("checkout_alert_error_title", isPresented: $viewModel.showErrorAlert) {
             Button("alert_button_ok", role: .cancel) { }
@@ -134,7 +134,7 @@ struct CheckoutView: View {
                             Text("checkout_summaryPrice")
                                 .font(.brand(size: .FontSize.medium, weight: .bold))
                                 .foregroundStyle(.navy)
-                            Text("\(info.summaryPrice) Ft")
+                            Text("\(viewModel.summaryPrice) Ft")
                                 .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
                                 .foregroundStyle(.navy)
                         }
@@ -205,7 +205,7 @@ struct CheckoutView: View {
     
     var cancelButton: some View {
         RoundedButton(title: "checkout_cancel") {
-            self.coordinator.cancelScreen()
+            self.coordinator.checkoutAction(.cancelScreen)
         }
     }
         

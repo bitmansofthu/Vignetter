@@ -21,6 +21,14 @@ class CheckoutViewModel: ObservableObject {
     @Published var showErrorAlert: Bool = false
     @Published var errorMessage: String?
     
+    var summaryPrice: Int {
+        if info.vignette.type == .year {
+            return info.counties.count * info.vignette.price + info.vignette.trxFee
+        } else {
+            return info.vignette.price + info.vignette.trxFee
+        }
+    }
+    
     // MARK: - Private Properties
     
     let sendOrderUseCase: SendOrderUseCaseProtocol

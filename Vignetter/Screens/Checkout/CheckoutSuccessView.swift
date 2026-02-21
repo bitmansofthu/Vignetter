@@ -88,7 +88,7 @@ struct CheckoutSuccessView: View {
         VStack {
             Spacer()
             RoundedButton(title: "checkout_done_button", style: .filled) {
-                coordinator.goToDashboard()
+                coordinator.checkoutAction(.gotoDashboard)
             }
             .padding([.leading, .trailing], Constants.containerPadding)
             .padding(.bottom, 34)

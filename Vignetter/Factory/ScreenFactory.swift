@@ -21,8 +21,13 @@ class ScreenFactory {
         return DashboardView(coordinator: coordinator, viewModel: viewModel)
     }
     
-    static func createCountySelector(coordinator: DashboardCoordinatorProtocol) -> some View {
-        EmptyView()
+    static func createCountySelector(
+        coordinator: CountySelectorCoordinatorProtocol,
+        info: OrderInfo,
+        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
+    ) -> some View {
+        let viewModel = CountySelectorViewModel(info: info, getHighwayInfoUseCase: getHighwayInfoUseCase)
+        return CountySelectorView(coordinator: coordinator, viewModel: viewModel)
     }
     
     static func createCheckout(
