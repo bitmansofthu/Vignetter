@@ -37,6 +37,7 @@ struct CountySelectorView: View {
                             .lineLimit(1)
                         Spacer()
                     }
+                    .padding(.top, 20)
                     
                     mapView
                     
@@ -62,7 +63,7 @@ struct CountySelectorView: View {
                     nextButton
                 }
             }
-            .padding(20)
+            .padding([.bottom, .trailing, .leading], 20)
             .scrollIndicators(.hidden)
         }
         .customNavigationTitle(
