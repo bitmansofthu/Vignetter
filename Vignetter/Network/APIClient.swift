@@ -76,9 +76,8 @@ class APIClient: APIClientProtocol {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
                 let data = try encoder.encode(payload)
-                Logger.network.debug("POST JSON")
                 #if DEBUG
-                Logger.logJSON(data)
+                Logger.logJSON(data, prefix: "POST JSON")
                 #endif
                 request.httpBody = data
             } catch {
@@ -97,9 +96,8 @@ class APIClient: APIClientProtocol {
         }
 
         do {
-            Logger.network.debug("⬇️ Response JSON")
             #if DEBUG
-            Logger.logJSON(data)
+            Logger.logJSON(data, prefix: "⬇️ Response JSON")
             #endif
             return try decoder.decode(Response.self, from: data)
         } catch {
