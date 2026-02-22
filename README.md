@@ -12,6 +12,8 @@ A tesztelhetőség és a hatékony kódkarbantartás érdekében esett erre a v�
 
 További fejlesztési lehetőségek:
 
+UI: A navigation barnal jelenleg a standard iOS-es valtozatot használtam, amelyet korlátozottan lehet csak módosítani SwiftUI-ból. Egy lehetséges megoldás a navigation bar eltűntetése és egy layoutba illesztett újrahasznosítható és konfigurálható custom View használata.
+
 A hálózati kommunikációra a beépített URLSession hívásokat használtam, nincs szükség külső package-re. A DTO-k a Swagger yaml alapján lettek elkészítve. Továbbfejlesztési lehetőségként az Apple által biztosított swift-openapi-generator-t lehetne alkalmazni, amely automatikusan megoldja a típusok és a megfelelő függvényhívások generálását, ezáltal eltűntetve több felesleges boilerplate kódot.
 
 Dependency Injection: A modulok átadása jelenleg constructoron keresztül történik az App komponensből a Coordinatoron keresztül. Továbbfejlesztésként a FactoryKit DI frameworköt alkalmaznám, ahol jelentősen egyszerűsödik az injektálás és többféle opció is van a modulok életciklusának kezeléséhez.
