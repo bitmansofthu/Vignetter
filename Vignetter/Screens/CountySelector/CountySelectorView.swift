@@ -11,7 +11,7 @@ struct CountySelectorView: View {
     
     private enum Constants {
         static let mapWidth: CGFloat = 311
-        static let mapHeight: CGFloat = 186
+        static let mapHeight: CGFloat = 200
     }
     
     @StateObject private var viewModel: CountySelectorViewModel
@@ -28,43 +28,40 @@ struct CountySelectorView: View {
             Color.grey50
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack {
-                    HStack {
-                        Text("countySelector_title")
-                            .font(.brand(size: .FontSize.extraLarge, weight: .bold))
+            VStack {
+                HStack {
+                    Text("countySelector_title")
+                        .font(.brand(size: .FontSize.extraLarge, weight: .bold))
+                        .foregroundStyle(.navy)
+                        .lineLimit(1)
+                    Spacer()
+                }
+                
+                mapView
+                    .padding(.bottom, 5)
+                
+                countyCheckList
+                
+                Divider()
+                    .padding([.top, .bottom])
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("countySelector_summaryPrice")
+                            .font(.brand(size: .FontSize.medium, weight: .bold))
                             .foregroundStyle(.navy)
                             .lineLimit(1)
-                        Spacer()
+                        Text("\(viewModel.summaryPrice) Ft")
+                            .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
+                            .foregroundStyle(.navy)
+                            .lineLimit(1)
                     }
-                    .padding(.top, 20)
-                    
-                    mapView
-                    
-                    countyCheckList
-                    
-                    Divider()
-                        .padding([.top, .bottom])
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("countySelector_summaryPrice")
-                                .font(.brand(size: .FontSize.medium, weight: .bold))
-                                .foregroundStyle(.navy)
-                                .lineLimit(1)
-                            Text("\(viewModel.summaryPrice) Ft")
-                                .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
-                                .foregroundStyle(.navy)
-                                .lineLimit(1)
-                        }
-                        Spacer()
-                    }
-                    
-                    nextButton
+                    Spacer()
                 }
+                
+                nextButton
             }
-            .padding([.bottom, .trailing, .leading], 20)
-            .scrollIndicators(.hidden)
+            .padding(20)
         }
         .customNavigationTitle(
             title: "countySelector_navigation_title",
@@ -91,24 +88,29 @@ struct CountySelectorView: View {
         ZStack {
             ForEach(viewModel.counties) { county in
                 if let mapInfo = county.mapInfo {
-                    Image(
-                        viewModel.selectedCounties.contains(county) ?
-                            mapInfo.selectedImageName :
-                            mapInfo.imageName
-                    )
-                    .resizable()
+                    Image(mapInfo.imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .colorMultiply(viewModel.selectedCounties.contains(county) ? .lime : .sky)
                 } else {
                     EmptyView()
                 }
             }
+            Image("fullmap")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
-        .aspectRatio(Constants.mapWidth/Constants.mapHeight, contentMode: .fit)
     }
     
     var countyCheckList: some View {
-        ForEach(viewModel.counties) { county in
-            checkBoxRow(county: county)
-                .padding([.bottom], 5)
+        ScrollView {
+            VStack {
+                ForEach(viewModel.counties) { county in
+                    checkBoxRow(county: county)
+                        .padding([.bottom], 5)
+                }
+            }
+            .padding(.trailing, 10)
         }
     }
     

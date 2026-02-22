@@ -76,10 +76,6 @@ enum CountyMapInfo: String, CaseIterable, Identifiable {
         return self.rawValue
     }
     
-    var selectedImageName: String {
-        return self.rawValue + "_selected"
-    }
-    
     var neighbours: [CountyMapInfo] {
         switch self {
         case .bacskiskun:
