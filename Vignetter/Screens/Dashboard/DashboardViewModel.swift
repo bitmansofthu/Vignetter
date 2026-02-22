@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DashboardViewState {
     let vignettes: [Vignette]
-    let yearlyCountyVignette: Vignette?
+    let countyVignette: Vignette?
     let vehicleInformation: VehicleInformation?
 }
 
@@ -62,7 +62,7 @@ class DashboardViewModel: ObservableObject {
             
             self.state = .loaded(DashboardViewState(
                 vignettes: countryVignettes,
-                yearlyCountyVignette: yearlyCountyVignette,
+                countyVignette: yearlyCountyVignette,
                 vehicleInformation: vehicleInformation)
             )
         } catch {
@@ -88,7 +88,7 @@ extension DashboardViewModel {
 
 extension DashboardViewState {
     static var preview: DashboardViewState {
-        .init(vignettes: [.preview], yearlyCountyVignette: .preview, vehicleInformation: .preview)
+        .init(vignettes: [.preview], countyVignette: .preview, vehicleInformation: .preview)
     }
 }
 #endif

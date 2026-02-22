@@ -95,9 +95,9 @@ struct DashboardView: View {
                 .cornerRadius(Constants.containerRadius)
                 .padding([.leading, .trailing], Constants.containerPadding)
                 
-                if viewState.yearlyCountyVignette != nil {
+                if viewState.countyVignette != nil {
                     countySelector {
-                        guard let selectedVignette = viewState.yearlyCountyVignette,
+                        guard let selectedVignette = viewState.countyVignette,
                               let vehicleInformation = viewState.vehicleInformation else {
                             return
                         }
