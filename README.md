@@ -1,18 +1,19 @@
 # Vignetter
 
-Telepítési útmutató:
+**Telepítési útmutató**
 XCode-ban a projekt megnyitását követően a Vignetter targetet lehet futtatni szimulátorban aláírás nélkül.
 Az app minimum iOS követelménye a 16-os verzió, a fejlesztés maga 26.2-es szimulátoron lett tesztelve.
 A backend szimulálásához a mellékelt PHP fájlt használtam, melyet a saját tárhelyemen tettem elérhetővé a fejlesztéshez.
 A backend url az AppConfigban állítható be.
 
-Architektúra:
+**Architektúra**
 SwiftUI és MVVM + Coordinator (NavigationStack)
 A tesztelhetőség és a hatékony kódkarbantartás érdekében esett erre a választásom. A ViewModel ezen felül biztosítja, hogy az üzleti logika elválasztódjon a Viewoktól, így az akár többféle megjelenítéshez is használható megkönnyítve például egy iPad változat implementálását.
 
-További fejlesztési lehetőségek:
+**További fejlesztési lehetőségek**
 
 UI: A navigation barnal jelenleg a standard iOS-es valtozatot használtam, amelyet korlátozottan lehet csak módosítani SwiftUI-ból. Egy lehetséges megoldás a navigation bar eltűntetése és egy layoutba illesztett újrahasznosítható és konfigurálható custom View használata.
+Egy lehetséges megvalósítása ennek a *navigationbarfix* branchen található.
 
 A hálózati kommunikációra a beépített URLSession hívásokat használtam, nincs szükség külső package-re. A DTO-k a Swagger yaml alapján lettek elkészítve. Továbbfejlesztési lehetőségként az Apple által biztosított swift-openapi-generator-t lehetne alkalmazni, amely automatikusan megoldja a típusok és a megfelelő függvényhívások generálását, ezáltal eltűntetve több felesleges boilerplate kódot.
 
