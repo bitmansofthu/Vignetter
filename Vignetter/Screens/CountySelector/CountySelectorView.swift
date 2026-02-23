@@ -9,19 +9,27 @@ import SwiftUI
 
 struct CountySelectorView: View {
     
+    // MARK: - Types
+    
     private enum Constants {
         static let mapWidth: CGFloat = 311
         static let mapHeight: CGFloat = 200
     }
     
+    // MARK: - Private Properties
+    
     @StateObject private var viewModel: CountySelectorViewModel
     @State private var showValidationError: Bool = false
     private let coordinator: CountySelectorCoordinatorProtocol
+    
+    // MARK: - Lifecycle
     
     init(coordinator: CountySelectorCoordinatorProtocol, viewModel: CountySelectorViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.coordinator = coordinator
     }
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {

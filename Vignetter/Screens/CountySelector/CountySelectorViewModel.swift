@@ -9,6 +9,8 @@ import Combine
 
 class CountySelectorViewModel: ObservableObject {
     
+    // MARK: - Published Properties
+    
     @Published var showFetchCountiesError: Bool = false
     @Published var counties: [CountyDTO] = []
     @Published var selectedCounties: Set<CountyDTO> = []
@@ -19,7 +21,11 @@ class CountySelectorViewModel: ObservableObject {
     
     var orderInfo: OrderInfo
     
+    // MARK: - Private Properties
+    
     private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
+    
+    // MARK: - Lifecycle
     
     init(
         info: OrderInfo,
