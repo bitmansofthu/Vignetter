@@ -5,22 +5,18 @@
 //  Created by Ferenc Knebl on 2026. 02. 17..
 //
 
+import FactoryKit
 import SwiftUI
 
 @main
 struct VignetterApp: App {
-    @StateObject var coordinator: MainCoordinator
-    
-    init() {
-        self._coordinator = StateObject(wrappedValue: MainCoordinator())
-    }
-    
+    @InjectedObject(\.mainCoordinator) var mainCoordinator
+
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $coordinator.path) {
-                coordinator.startView()
+            NavigationStack(path: $mainCoordinator.path) {
+                mainCoordinator.startView()
             }
-            .environmentObject(coordinator)
         }
     }
 }

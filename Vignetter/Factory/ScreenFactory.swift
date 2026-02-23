@@ -10,26 +10,18 @@ import SwiftUI
 @MainActor
 class ScreenFactory {
 
-    static func createDashboard(
-        coordinator: DashboardCoordinatorProtocol
-    ) -> some View {
+    static func createDashboard() -> some View {
         let viewModel = DashboardViewModel()
-        return DashboardView(coordinator: coordinator, viewModel: viewModel)
+        return DashboardView(viewModel: viewModel)
     }
     
-    static func createCountySelector(
-        coordinator: CountySelectorCoordinatorProtocol,
-        info: OrderInfo
-    ) -> some View {
+    static func createCountySelector(info: OrderInfo) -> some View {
         let viewModel = CountySelectorViewModel(info: info)
-        return CountySelectorView(coordinator: coordinator, viewModel: viewModel)
+        return CountySelectorView(viewModel: viewModel)
     }
     
-    static func createCheckout(
-        coordinator: CheckoutCoordinatorProtocol,
-        info: OrderInfo
-    ) -> some View {
+    static func createCheckout(info: OrderInfo) -> some View {
         let viewModel = CheckoutViewModel(info: info)
-        return CheckoutView(coordinator: coordinator, viewModel: viewModel)
+        return CheckoutView(viewModel: viewModel)
     }
 }

@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 19..
 //
 
+import FactoryKit
 import SwiftUI
 
 struct CheckoutView: View {
@@ -17,19 +18,19 @@ struct CheckoutView: View {
     
     // MARK: - Private Properties
     
-    private let coordinator: CheckoutCoordinatorProtocol
-    
     @StateObject private var viewModel: CheckoutViewModel
     @State private var isSendingOrder: Bool = false
+    
+    // MARK: - Dependencies
+    
+    @InjectedObject(\.mainCoordinator) var mainCoordinator
     
     // MARK: - Lifecycle
     
     init(
-        coordinator: CheckoutCoordinatorProtocol,
         viewModel: CheckoutViewModel
     ) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-        self.coordinator = coordinator
     }
     
     // MARK: - Body
@@ -54,7 +55,7 @@ struct CheckoutView: View {
             title: "checkout_navigation_title",
             showBackButton: !isSendingOrder
         ) {
-            self.coordinator.checkoutAction(.cancelScreen)
+            mainCoordinator.goBack()
         }
         .alert("checkout_alert_error_title", isPresented: $viewModel.showErrorAlert) {
             Button("alert_button_ok", role: .cancel) { }
@@ -64,7 +65,7 @@ struct CheckoutView: View {
     }
     
     var successPhaseView: some View {
-        CheckoutSuccessView(coordinator: coordinator)
+        CheckoutSuccessView()
     }
         
     func detailsView(info: OrderInfo) -> some View {
@@ -202,13 +203,12 @@ struct CheckoutView: View {
     
     var cancelButton: some View {
         RoundedButton(title: "checkout_cancel") {
-            self.coordinator.checkoutAction(.cancelScreen)
+            mainCoordinator.goBack()
         }
     }
         
 }
 
 #Preview {
-    let coordinator = PreviewCheckoutCoordinator()
-    CheckoutView(coordinator: coordinator, viewModel: .preview)
+    CheckoutView(viewModel: .preview)
 }

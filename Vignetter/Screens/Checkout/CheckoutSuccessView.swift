@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 20..
 //
 
+import FactoryKit
 import SwiftUI
 
 struct CheckoutSuccessView: View {
@@ -16,15 +17,14 @@ struct CheckoutSuccessView: View {
         static let containerPadding: CGFloat = 16
     }
     
-    
-    //MARK: - Public Properties
-    
-    let coordinator: CheckoutCoordinatorProtocol
-    
     //MARK: - Private Properties
     
     @State private var confettiYOffset = Constants.confettiStartPos
     @State private var opacity: CGFloat = 0
+    
+    // MARK: - Dependencies
+    
+    @InjectedObject(\.mainCoordinator) var mainCoordinator
     
     //MARK: - Lifecycle
         
@@ -88,7 +88,7 @@ struct CheckoutSuccessView: View {
         VStack {
             Spacer()
             RoundedButton(title: "checkout_done_button", style: .filled) {
-                coordinator.checkoutAction(.gotoDashboard)
+                mainCoordinator.reset()
             }
             .padding([.leading, .trailing], Constants.containerPadding)
             .padding(.bottom, 34)
@@ -97,6 +97,5 @@ struct CheckoutSuccessView: View {
 }
 
 #Preview {
-    let coordinator = PreviewCheckoutCoordinator()
-    CheckoutSuccessView(coordinator: coordinator)
+    CheckoutSuccessView()
 }

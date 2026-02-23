@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 17..
 //
 
+import FactoryKit
 import SwiftUI
 
 struct DashboardView: View {
@@ -22,14 +23,13 @@ struct DashboardView: View {
     
     // MARK: - Private Properties
     
-    private let coordinator: DashboardCoordinatorProtocol
-    
     @StateObject private var viewModel: DashboardViewModel
+    
+    @InjectedObject(\.mainCoordinator) var mainCoordinator
     
     // MARK: - Lifecycle
     
-    init(coordinator: DashboardCoordinatorProtocol, viewModel: DashboardViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: DashboardViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -86,7 +86,7 @@ struct DashboardView: View {
                             vehicleInformation: vehicleInformation,
                             vignette: selectedVignette
                         )
-                        coordinator.dashboardAction(.showCheckout(orderInfo))
+                        mainCoordinator.showCheckout(orderInfo: orderInfo)
                     }
                 }
                 .background {
@@ -105,7 +105,7 @@ struct DashboardView: View {
                             vehicleInformation: vehicleInformation,
                             vignette: selectedVignette
                         )
-                        coordinator.dashboardAction(.showCountySelector(orderInfo))
+                        mainCoordinator.showCountySelector(orderInfo: orderInfo)
                     }
                     .padding([.leading, .trailing], Constants.containerPadding)
                 }
@@ -253,6 +253,5 @@ struct DashboardView: View {
 }
 
 #Preview {
-    let coordinator = PreviewDashboardCoordinator()
-    DashboardView(coordinator: coordinator, viewModel: .preview)
+    DashboardView(viewModel: .preview)
 }

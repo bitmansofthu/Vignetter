@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 20..
 //
 
+import FactoryKit
 import SwiftUI
 
 struct CountySelectorView: View {
@@ -20,13 +21,15 @@ struct CountySelectorView: View {
     
     @StateObject private var viewModel: CountySelectorViewModel
     @State private var showValidationError: Bool = false
-    private let coordinator: CountySelectorCoordinatorProtocol
+    
+    // MARK: - Dependencies
+    
+    @InjectedObject(\.mainCoordinator) var mainCoordinator
     
     // MARK: - Lifecycle
     
-    init(coordinator: CountySelectorCoordinatorProtocol, viewModel: CountySelectorViewModel) {
+    init(viewModel: CountySelectorViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
-        self.coordinator = coordinator
     }
     
     // MARK: - Body
@@ -75,7 +78,7 @@ struct CountySelectorView: View {
             title: "countySelector_navigation_title",
             showBackButton: true
         ) {
-            self.coordinator.countySelectorAction(.cancelScreen)
+            mainCoordinator.goBack()
         }
         .alert("countySelector_validationError_title", isPresented: $showValidationError, actions: {
             Button("alert_button_ok") { }
@@ -144,7 +147,7 @@ struct CountySelectorView: View {
     var nextButton: some View {
         RoundedButton(title: "button_next", style: .filled) {
             if viewModel.validateSelectedCounties() {
-                coordinator.countySelectorAction(.showCheckout(viewModel.orderInfo))
+                mainCoordinator.showCheckout(orderInfo: viewModel.orderInfo)
             } else {
                 showValidationError = true
             }
@@ -155,6 +158,5 @@ struct CountySelectorView: View {
 }
 
 #Preview {
-    let coordinator = PreviewCountrySelectorCoordinator()
-    CountySelectorView(coordinator: coordinator, viewModel: .preview)
+    CountySelectorView(viewModel: .preview)
 }

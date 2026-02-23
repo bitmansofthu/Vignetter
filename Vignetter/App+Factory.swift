@@ -13,8 +13,7 @@ extension Container {
     }
     
     var highwayInfoRepository: Factory<HighwayInfoRepositoryProtocol> {
-        Factory(self) { HighwayInfoRepository() }
-            .scope(.cached)
+        Factory(self) { HighwayInfoRepository() }.cached
     }
     
     var getHighwayInfoUseCase: Factory<GetHighwayInfoUseCaseProtocol> {
@@ -27,5 +26,9 @@ extension Container {
     
     var sendOrderUseCase: Factory<SendOrderUseCaseProtocol> {
         Factory(self) { SendOrderUseCase() }
+    }
+    
+    var mainCoordinator: Factory<MainCoordinator> {
+        Factory(self) { @MainActor in MainCoordinator() }.cached
     }
 }

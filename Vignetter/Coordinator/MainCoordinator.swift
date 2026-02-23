@@ -24,24 +24,24 @@ class MainCoordinator: ObservableObject {
     private var startID: UUID = UUID()
     
     func startView() -> some View {
-        ScreenFactory.createDashboard(
-            coordinator: self
-        )
+        ScreenFactory.createDashboard()
         .navigationDestination(for: Destination.self) { destination in
             switch destination {
-            case let .checkout(info):
-                ScreenFactory.createCheckout(
-                    coordinator: self,
-                    info: info
-                )
-            case let .countySelector(info):
-                ScreenFactory.createCountySelector(
-                    coordinator: self,
-                    info: info
-                )
+            case let .checkout(orderInfo):
+                ScreenFactory.createCheckout(info: orderInfo)
+            case let .countySelector(orderInfo):
+                ScreenFactory.createCountySelector(info: orderInfo)
             }
         }
         .id(startID)
+    }
+    
+    func showCountySelector(orderInfo: OrderInfo) {
+        path.append(Destination.countySelector(orderInfo))
+    }
+    
+    func showCheckout(orderInfo: OrderInfo) {
+        path.append(Destination.checkout(orderInfo))
     }
     
     func goBack() {
