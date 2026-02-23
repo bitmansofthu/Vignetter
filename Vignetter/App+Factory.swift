@@ -29,6 +29,6 @@ extension Container {
     }
     
     var mainCoordinator: Factory<MainCoordinator> {
-        Factory(self) { @MainActor in MainCoordinator() }.cached
+        Factory(self) { @MainActor in MainCoordinator() }.shared
     }
 }

@@ -21,7 +21,7 @@ A hálózati kommunikációra a beépített URLSession hívásokat használtam, 
 
 Repository: Jelenleg csak a highway info tárolásához használok in memory repositoryt, amely lehetővé teszi az adatok elérését a ViewModelek között azok újboli letöltése nélkül. Jelenleg a frissítési intervallum kezelése nincs implementálva. Emellett a repositorykon keresztül az offline mód implementálása is lehetővé válik.
 
-Dependency Injection: A modulok Factory containerbe lettek regisztrálva, a repository .cached scope-al, hogy a Container létezéséig, ugyanaz az instance legyen elérhető.
+Dependency Injection: A modulok Factory containerbe lettek regisztrálva, a repository .cached scope-al, hogy a Container létezéséig ugyanaz az instance legyen elérhető, illetve a MainCoordinator .shared scope-al.
 
 Térkép: A Figmaból kiexportált SVG-t megyénként külön képekre bontottam, a teljes térképméretet megtartva és ZStack-ban rétegenként jelenítem meg, így az összes kép együtt kiadja az ország térképet. A kitöltési színeket fehérre cseréltem, így .colorMultiply-al állítható az alap/kiválasztott szín és ezáltal akár Dark mode-hoz is igazítható. A határvonalakat külön exportáltam egy teljes képként. Másik lehetőség az SVGKit külső package használata, amely CALayer-ekre bontja a képet, melyek előre meghatározott id-k alapján elérhetőek és a kitöltési szín a kiválasztásnak megfelelően állítható. Ez azonban ahhoz, hogy SwiftUI-ban is használható legyen, UIKit bindingot igényel.
 
