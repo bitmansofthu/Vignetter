@@ -15,8 +15,11 @@ A tesztelhetőség és a hatékony kódkarbantartás érdekében esett erre a v�
 **További fejlesztési lehetőségek**
 
 Branchek:
+
 *difactory* - DI megoldás Factory-val.
+
 *navigationbarfix* - A designban szereplő navigation bar használata a standard iOS-es helyett.
+
 
 UI: A navigation barnal jelenleg a standard iOS-es valtozatot használtam, amelyet korlátozottan lehet csak módosítani SwiftUI-ból. Egy lehetséges megoldás a navigation bar eltűntetése és egy layoutba illesztett újrahasznosítható és konfigurálható custom View használata.
 Egy lehetséges megvalósítása ennek a *navigationbarfix* branchen található.
