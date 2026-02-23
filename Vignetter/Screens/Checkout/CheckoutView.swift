@@ -50,9 +50,9 @@ struct CheckoutView: View {
             
             detailsView(info: viewModel.info)
         }
-        .customNavigationTitle(
-            title: "checkout_navigation_title",
-            showBackButton: !isSendingOrder
+        .limeNavigationBar(
+            title: String(localized: "checkout_navigation_title"),
+            showBackArrow: true
         ) {
             self.coordinator.checkoutAction(.cancelScreen)
         }

@@ -71,9 +71,9 @@ struct CountySelectorView: View {
             }
             .padding(20)
         }
-        .customNavigationTitle(
-            title: "countySelector_navigation_title",
-            showBackButton: true
+        .limeNavigationBar(
+            title: String(localized: "countySelector_navigation_title"),
+            showBackArrow: true
         ) {
             self.coordinator.countySelectorAction(.cancelScreen)
         }

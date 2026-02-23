@@ -51,7 +51,7 @@ struct DashboardView: View {
                 errorView(message: message)
             }
         }
-        .customNavigationTitle(title: "dashboard_navigation_title")
+        .limeNavigationBar(title: String(localized: "dashboard_navigation_title"))
         .task {
             if case .initial = viewModel.state {
                 await viewModel.fetchData()
@@ -116,10 +116,12 @@ struct DashboardView: View {
     
     private var loading: some View {
         VStack() {
+            Spacer()
             ProgressView()
                 .progressViewStyle(.circular)
                 .tint(.navy)
                 .padding()
+            Spacer()
         }
     }
     

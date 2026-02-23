@@ -61,6 +61,21 @@ struct NavigationTitleModifier: ViewModifier {
     }
 }
 
+struct LimeNavigationBarModifier: ViewModifier {
+
+    let title: String
+    let showBackArrow: Bool
+    let backAction: (() -> Void)?
+    
+    func body(content: Content) -> some View {
+        VStack(spacing: 0) {
+            LimeNavigationBar(title: title, showBackArrow: showBackArrow, backAction: backAction)
+            content
+                .navigationBarHidden(true)
+        }
+    }
+}
+
 extension View {
     func customNavigationTitle(
         title: LocalizedStringKey,
@@ -74,5 +89,19 @@ extension View {
             showBackButton: showBackButton,
             backAction: backAction
         ))
+    }
+    
+    func limeNavigationBar(
+        title: String,
+        backgroundColor: Color = .grey50,
+        showBackArrow: Bool = false,
+        backAction: (() -> Void)? = nil
+    ) -> some View {
+        modifier(LimeNavigationBarModifier(
+            title: title,
+            showBackArrow: showBackArrow,
+            backAction: backAction
+        ))
+        .background(backgroundColor)
     }
 }
