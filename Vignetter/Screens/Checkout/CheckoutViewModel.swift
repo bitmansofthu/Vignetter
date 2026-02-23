@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 19..
 //
 
+import FactoryKit
 import Foundation
 import Combine
 
@@ -13,6 +14,7 @@ enum CheckoutViewState {
     case success
 }
 
+@MainActor
 class CheckoutViewModel: ObservableObject {
     
     // MARK: - Published Properties
@@ -31,17 +33,16 @@ class CheckoutViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    let sendOrderUseCase: SendOrderUseCaseProtocol
     let info: OrderInfo
+    
+    // MARK: - Dependencies
+    
+    @Injected(\.sendOrderUseCase) var sendOrderUseCase
     
     // MARK: - Lifecycle
     
-    init(
-        info: OrderInfo,
-        sendOrderUseCase: SendOrderUseCaseProtocol
-    ) {
+    init(info: OrderInfo) {
         self.info = info
-        self.sendOrderUseCase = sendOrderUseCase
         self.state = .info(info)
     }
     
@@ -68,7 +69,8 @@ class CheckoutViewModel: ObservableObject {
 #if DEBUG
 extension CheckoutViewModel {
     static let preview: CheckoutViewModel = {
-        CheckoutViewModel(info: .preview, sendOrderUseCase: SendOrderUseCasePreview())
+        let _ = Container.shared.sendOrderUseCase.register { SendOrderUseCasePreview() }
+        return CheckoutViewModel(info: .preview)
     }()
 }
 #endif

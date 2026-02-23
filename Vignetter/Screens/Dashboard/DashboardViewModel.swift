@@ -6,6 +6,7 @@
 //
 
 import Combine
+import FactoryKit
 import SwiftUI
 
 struct DashboardViewState {
@@ -21,6 +22,7 @@ enum DashboardState {
     case error(_ message: LocalizedStringKey)
 }
 
+@MainActor
 class DashboardViewModel: ObservableObject {
     
     // MARK: - Published Properties
@@ -28,21 +30,17 @@ class DashboardViewModel: ObservableObject {
     @Published var state: DashboardState
     @Published var selectedVignette: Vignette? = nil
     
-    // MARK: - Private Properties
+    // MARK: - Dependencies
     
-    private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
-    private let getVehicleUseCase: GetVehicleUseCaseProtocol
+    @Injected(\.getHighwayInfoUseCase) var getHighwayInfoUseCase
+    @Injected(\.getVehicleUseCase) var getVehicleUseCase
     
     // MARK: - Lifecycle
     
     init(
         state: DashboardState = .initial,
-        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol,
-        getVehicleUseCase: GetVehicleUseCaseProtocol
     ) {
         self.state = state
-        self.getVehicleUseCase = getVehicleUseCase
-        self.getHighwayInfoUseCase = getHighwayInfoUseCase
     }
     
     func fetchData() async {
@@ -78,10 +76,10 @@ class DashboardViewModel: ObservableObject {
 #if DEBUG
 extension DashboardViewModel {
     static let preview: DashboardViewModel = {
+        let _ = Container.shared.getVehicleUseCase.register { GetVehicleUseCasePreview() }
+        let _ = Container.shared.getHighwayInfoUseCase.register { GetHighwayInfoUseCasePreview() }
         return DashboardViewModel(
-            state: .loaded(.preview),
-            getHighwayInfoUseCase: GetHighwayInfoUseCasePreview(),
-            getVehicleUseCase: GetVehicleUseCasePreview()
+            state: .loaded(.preview)
         )
     }()
 }

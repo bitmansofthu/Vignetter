@@ -46,7 +46,7 @@ protocol APIClientProtocol {
     func request<Response: Decodable>(type: APIClientRequestType, url: String) async throws -> Response
 }
 
-class APIClient: APIClientProtocol {
+struct APIClient: APIClientProtocol {
 
     private let session: URLSession
     private let encoder: JSONEncoder

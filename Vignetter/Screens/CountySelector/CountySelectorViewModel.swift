@@ -5,8 +5,10 @@
 //  Created by Ferenc Knebl on 2026. 02. 20..
 //
 
+import FactoryKit
 import Combine
 
+@MainActor
 class CountySelectorViewModel: ObservableObject {
     
     // MARK: - Published Properties
@@ -21,18 +23,14 @@ class CountySelectorViewModel: ObservableObject {
     
     var orderInfo: OrderInfo
     
-    // MARK: - Private Properties
+    // MARK: - Dependencies
     
-    private let getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
+    @Injected(\.getHighwayInfoUseCase) var getHighwayInfoUseCase
     
     // MARK: - Lifecycle
     
-    init(
-        info: OrderInfo,
-        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
-    ) {
+    init(info: OrderInfo) {
         orderInfo = info
-        self.getHighwayInfoUseCase = getHighwayInfoUseCase
     }
     
     func fetchCounties() async {
@@ -72,9 +70,9 @@ class CountySelectorViewModel: ObservableObject {
 #if DEBUG
 extension CountySelectorViewModel {
     static let preview: CountySelectorViewModel = {
-        CountySelectorViewModel(
-            info: .preview,
-            getHighwayInfoUseCase: GetHighwayInfoUseCasePreview()
+        let _ = Container.shared.getHighwayInfoUseCase.register { GetHighwayInfoUseCasePreview() }
+        return CountySelectorViewModel(
+            info: .preview
         )
     }()
 }

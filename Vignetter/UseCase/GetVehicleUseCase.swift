@@ -5,17 +5,15 @@
 //  Created by Ferenc Knebl on 2026. 02. 19..
 //
 
+import FactoryKit
+
 protocol GetVehicleUseCaseProtocol {
     func execute() async throws -> VehicleInformation
 }
 
 struct GetVehicleUseCase: GetVehicleUseCaseProtocol {
     
-    let apiClient: APIClientProtocol
-    
-    init(apiClient: APIClientProtocol) {
-        self.apiClient = apiClient
-    }
+    @Injected(\.networkClient) var apiClient
     
     func execute() async throws -> VehicleInformation {
         let response: VehicleResponse = try await apiClient.request(

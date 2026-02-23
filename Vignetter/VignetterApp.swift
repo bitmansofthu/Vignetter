@@ -12,17 +12,7 @@ struct VignetterApp: App {
     @StateObject var coordinator: MainCoordinator
     
     init() {
-        // TODO: DI
-        let apiClient = APIClient()
-        let highwayInfoRepository = HighwayInfoRepository(apiClient: apiClient)
-        let coordinator = MainCoordinator(
-            getHighwayInfoUseCase: GetHighwayInfoUseCase(
-                highwayInfoRepository: highwayInfoRepository
-            ),
-            getVehicleUseCase: GetVehicleUseCase(apiClient: apiClient),
-            sendOrderUseCase: SendOrderUseCase(apiClient: apiClient)
-        )
-        self._coordinator = StateObject(wrappedValue: coordinator)
+        self._coordinator = StateObject(wrappedValue: MainCoordinator())
     }
     
     var body: some Scene {
@@ -30,6 +20,7 @@ struct VignetterApp: App {
             NavigationStack(path: $coordinator.path) {
                 coordinator.startView()
             }
+            .environmentObject(coordinator)
         }
     }
 }

@@ -7,35 +7,29 @@
 
 import SwiftUI
 
+@MainActor
 class ScreenFactory {
 
     static func createDashboard(
-        coordinator: DashboardCoordinatorProtocol,
-        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol,
-        getVehicleUseCase: GetVehicleUseCaseProtocol
+        coordinator: DashboardCoordinatorProtocol
     ) -> some View {
-        let viewModel = DashboardViewModel(
-            getHighwayInfoUseCase: getHighwayInfoUseCase,
-            getVehicleUseCase: getVehicleUseCase
-        )
+        let viewModel = DashboardViewModel()
         return DashboardView(coordinator: coordinator, viewModel: viewModel)
     }
     
     static func createCountySelector(
         coordinator: CountySelectorCoordinatorProtocol,
-        info: OrderInfo,
-        getHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol
+        info: OrderInfo
     ) -> some View {
-        let viewModel = CountySelectorViewModel(info: info, getHighwayInfoUseCase: getHighwayInfoUseCase)
+        let viewModel = CountySelectorViewModel(info: info)
         return CountySelectorView(coordinator: coordinator, viewModel: viewModel)
     }
     
     static func createCheckout(
         coordinator: CheckoutCoordinatorProtocol,
-        info: OrderInfo,
-        sendOrderUseCase: SendOrderUseCaseProtocol
+        info: OrderInfo
     ) -> some View {
-        let viewModel = CheckoutViewModel(info: info, sendOrderUseCase: sendOrderUseCase)
+        let viewModel = CheckoutViewModel(info: info)
         return CheckoutView(coordinator: coordinator, viewModel: viewModel)
     }
 }

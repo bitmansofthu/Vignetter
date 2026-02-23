@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 20..
 //
 
+import FactoryKit
 import Foundation
 
 protocol SendOrderUseCaseProtocol {
@@ -22,11 +23,7 @@ struct SendOrderUseCase: SendOrderUseCaseProtocol {
         static let ok = "OK"
     }
     
-    let apiClient: APIClientProtocol
-    
-    init(apiClient: APIClientProtocol) {
-        self.apiClient = apiClient
-    }
+    @Injected(\.networkClient) var apiClient
     
     func execute(
         vignette: Vignette,

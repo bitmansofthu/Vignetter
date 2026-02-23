@@ -5,17 +5,15 @@
 //  Created by Ferenc Knebl on 2026. 02. 19..
 //
 
+import FactoryKit
+
 protocol GetHighwayInfoUseCaseProtocol {
     func execute() async throws -> HighwayInfo
 }
 
 struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
     
-    let highwayInfoRepository: HighwayInfoRepositoryProtocol
-    
-    init(highwayInfoRepository: HighwayInfoRepositoryProtocol) {
-        self.highwayInfoRepository = highwayInfoRepository
-    }
+    @Injected(\.highwayInfoRepository) var highwayInfoRepository: HighwayInfoRepositoryProtocol
     
     func execute() async throws -> HighwayInfo {
         try await highwayInfoRepository.getHighwayInfo()

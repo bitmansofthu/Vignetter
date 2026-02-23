@@ -5,18 +5,16 @@
 //  Created by Ferenc Knebl on 2026. 02. 21..
 //
 
+import FactoryKit
+
 protocol HighwayInfoRepositoryProtocol {
     func getHighwayInfo() async throws -> HighwayInfo
 }
 
-class HighwayInfoRepository: HighwayInfoRepositoryProtocol {
+actor HighwayInfoRepository: HighwayInfoRepositoryProtocol {
     
+    @Injected(\.networkClient) var apiClient
     private var highwayInfo: HighwayInfo? = nil
-    private let apiClient: APIClientProtocol
-    
-    init(apiClient: APIClientProtocol) {
-        self.apiClient = apiClient
-    }
     
     func getHighwayInfo() async throws -> HighwayInfo {
         if let highwayInfo {
