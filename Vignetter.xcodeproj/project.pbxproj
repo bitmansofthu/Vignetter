@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F51597582F4D9EA600FD8326 /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = F51597572F4D9EA600FD8326 /* FactoryTesting */; };
 		F572C91C2F450B440045099F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F572C91B2F450B440045099F /* Assets.xcassets */; };
 		F572C9432F4526800045099F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F572C9422F4526800045099F /* Localizable.xcstrings */; };
 		F5DCE5E82F4C9F4700F0A2DA /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = F5DCE5E72F4C9F4700F0A2DA /* FactoryKit */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F51597582F4D9EA600FD8326 /* FactoryTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +165,7 @@
 			);
 			name = VignetterTests;
 			packageProductDependencies = (
+				F51597572F4D9EA600FD8326 /* FactoryTesting */,
 			);
 			productName = VignetterTests;
 			productReference = F572C9212F450B440045099F /* VignetterTests.xctest */;
@@ -628,6 +631,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F51597572F4D9EA600FD8326 /* FactoryTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5DCE5E52F4C9F3800F0A2DA /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryTesting;
+		};
 		F5DCE5E72F4C9F4700F0A2DA /* FactoryKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F5DCE5E52F4C9F3800F0A2DA /* XCRemoteSwiftPackageReference "Factory" */;

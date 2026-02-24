@@ -21,8 +21,8 @@ struct HighwayInfo {
 
 extension HighwayInfo {
     static var preview: HighwayInfo = .init(vignettes: [.preview], counties: [
-        .init(id: "YEAR_11", name: "Bács-Kiskun"),
-        .init(id: "YEAR_12", name: "Baranya"),
-        .init(id: "YEAR_13", name: "Bekes")
+        .bacsKiskunMock,
+        .baranyaMock,
+        .bekesMock
     ])
 }
