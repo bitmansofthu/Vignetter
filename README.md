@@ -4,7 +4,7 @@
 
 XCode-ban a projekt megnyitását követően a Vignetter targetet lehet futtatni szimulátorban aláírás nélkül.
 Az app minimum iOS követelménye a 16-os verzió, a fejlesztés maga 26.2-es szimulátoron lett tesztelve.
-A backend API szimulálásához a mellékelt PHP fájlt használtam, melyet a saját tárhelyemen tettem elérhetővé a fejlesztéshez.
+A backend API működtetéséhez a mellékelt PHP fájlt használtam, melyet a saját tárhelyemen tettem elérhetővé a fejlesztéshez.
 Az API url az AppConfigban állítható be.
 
 **Architektúra**
