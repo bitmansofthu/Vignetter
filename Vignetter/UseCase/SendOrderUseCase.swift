@@ -50,7 +50,7 @@ struct SendOrderUseCase: SendOrderUseCaseProtocol {
         
         let response: OrderResponse = try await apiClient.request(
             type: .post(OrderRequest(highwayOrders: orders)),
-            url: "\(AppConfig.shared.baseUrl)/highway/order"
+            endpoint: "/highway/order"
         )
         
         if let message = response.message, response.statusCode == Constants.error {

@@ -15,7 +15,11 @@ class CountySelectorViewModel: ObservableObject {
     
     @Published var showFetchCountiesError: Bool = false
     @Published var counties: [CountyDTO] = []
-    @Published var selectedCounties: Set<CountyDTO> = []
+    @Published var selectedCounties: Set<CountyDTO> = [] {
+        didSet {
+            orderInfo.counties = Array(selectedCounties)
+        }
+    }
     
     var summaryPrice: Int {
         selectedCounties.count * orderInfo.vignette.price
@@ -48,7 +52,6 @@ class CountySelectorViewModel: ObservableObject {
         } else {
             selectedCounties.remove(county)
         }
-        orderInfo.counties = Array(selectedCounties)
     }
     
     func validateSelectedCounties() -> Bool {

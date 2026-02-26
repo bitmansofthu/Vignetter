@@ -25,15 +25,15 @@ class MainCoordinator: ObservableObject {
     
     func startView() -> some View {
         ScreenFactory.createDashboard()
-        .navigationDestination(for: Destination.self) { destination in
-            switch destination {
-            case let .checkout(orderInfo):
-                ScreenFactory.createCheckout(info: orderInfo)
-            case let .countySelector(orderInfo):
-                ScreenFactory.createCountySelector(info: orderInfo)
+            .navigationDestination(for: Destination.self) { destination in
+                switch destination {
+                case let .checkout(orderInfo):
+                    ScreenFactory.createCheckout(info: orderInfo)
+                case let .countySelector(orderInfo):
+                    ScreenFactory.createCountySelector(info: orderInfo)
+                }
             }
-        }
-        .id(startID)
+            .id(startID)
     }
     
     func showCountySelector(orderInfo: OrderInfo) {

@@ -18,7 +18,7 @@ struct GetVehicleUseCase: GetVehicleUseCaseProtocol {
     func execute() async throws -> VehicleInformation {
         let response: VehicleResponse = try await apiClient.request(
             type: .get,
-            url: "\(AppConfig.shared.baseUrl)/highway/vehicle"
+            endpoint: "/highway/vehicle"
         )
         
         return VehicleInformation(response: response)

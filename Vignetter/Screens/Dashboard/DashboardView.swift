@@ -25,7 +25,9 @@ struct DashboardView: View {
     
     @StateObject private var viewModel: DashboardViewModel
     
-    @InjectedObject(\.mainCoordinator) var mainCoordinator
+    // MARK: - Dependencies
+    
+    @EnvironmentObject var mainCoordinator: MainCoordinator
     
     // MARK: - Lifecycle
     

@@ -30,7 +30,7 @@ actor HighwayInfoRepository: HighwayInfoRepositoryProtocol {
     private func fetchHighwayInfo() async throws -> HighwayInfo {
         let response: HighwayInfoResponse = try await apiClient.request(
             type: .get,
-            url: "\(AppConfig.shared.baseUrl)/highway/info"
+            endpoint: "/highway/info"
         )
         
         var vignettes = [Vignette]()

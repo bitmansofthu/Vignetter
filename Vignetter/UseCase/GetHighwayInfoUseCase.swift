@@ -13,7 +13,7 @@ protocol GetHighwayInfoUseCaseProtocol {
 
 struct GetHighwayInfoUseCase: GetHighwayInfoUseCaseProtocol {
     
-    @Injected(\.highwayInfoRepository) var highwayInfoRepository: HighwayInfoRepositoryProtocol
+    @Injected(\.highwayInfoRepository) var highwayInfoRepository
     
     func execute() async throws -> HighwayInfo {
         try await highwayInfoRepository.getHighwayInfo()

@@ -5,6 +5,7 @@
 //  Created by Ferenc Knebl on 2026. 02. 18..
 //
 
+import FactoryKit
 import Foundation
 import OSLog
 
@@ -43,11 +44,12 @@ enum APIClientRequestType {
 }
 
 protocol APIClientProtocol {
-    func request<Response: Decodable>(type: APIClientRequestType, url: String) async throws -> Response
+    func request<Response: Decodable>(type: APIClientRequestType, endpoint: String) async throws -> Response
 }
 
 struct APIClient: APIClientProtocol {
-
+    
+    @Injected(\.appConfig) var appConfig
     private let session: URLSession
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
@@ -62,8 +64,8 @@ struct APIClient: APIClientProtocol {
         self.decoder = decoder
     }
     
-    func request<Response>(type: APIClientRequestType, url: String) async throws -> Response where Response : Decodable {
-        guard let url = URL(string: url) else {
+    func request<Response>(type: APIClientRequestType, endpoint: String) async throws -> Response where Response : Decodable {
+        guard let url = URL(string: "\(appConfig.baseUrl)\(endpoint)") else {
             throw APIClientError.invalidURL
         }
 

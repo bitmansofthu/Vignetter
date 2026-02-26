@@ -10,13 +10,14 @@ import SwiftUI
 
 @main
 struct VignetterApp: App {
-    @InjectedObject(\.mainCoordinator) var mainCoordinator
+    @StateObject var mainCoordinator: MainCoordinator = MainCoordinator()
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $mainCoordinator.path) {
                 mainCoordinator.startView()
             }
+            .environmentObject(mainCoordinator)
         }
     }
 }

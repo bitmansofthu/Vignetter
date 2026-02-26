@@ -35,6 +35,8 @@ class DashboardViewModel: ObservableObject {
     @Injected(\.getHighwayInfoUseCase) var getHighwayInfoUseCase
     @Injected(\.getVehicleUseCase) var getVehicleUseCase
     
+    private var group: TaskGroup<String>? = nil
+    
     // MARK: - Lifecycle
     
     init(
@@ -46,22 +48,18 @@ class DashboardViewModel: ObservableObject {
     func fetchData() async {
         state = .loading
         do {
-            let info = try await getHighwayInfoUseCase.execute()
-            let vehicleInformation = try await getVehicleUseCase.execute()
+            async let info = try getHighwayInfoUseCase.execute()
+            async let vehicleInformation = try getVehicleUseCase.execute()
             
             // Filter yearly vignette, as it is not available in the designs.
-            let countryVignettes = info.vignettes.filter {
-                $0.type != .year && $0.type != .county
-            }
-            
-            let yearlyCountyVignette = info.vignettes.first {
-                $0.type == .county
-            }
-            
-            self.state = .loaded(DashboardViewState(
-                vignettes: countryVignettes,
-                countyVignette: yearlyCountyVignette,
-                vehicleInformation: vehicleInformation)
+            self.state = await .loaded(DashboardViewState(
+                vignettes: try info.vignettes.filter {
+                    $0.type != .year && $0.type != .county
+                },
+                countyVignette: try info.vignettes.first {
+                    $0.type == .county
+                },
+                vehicleInformation: try vehicleInformation)
             )
         } catch {
             self.state = .error("dashboard_error_message")

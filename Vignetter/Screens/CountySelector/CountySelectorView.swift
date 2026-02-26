@@ -24,7 +24,7 @@ struct CountySelectorView: View {
     
     // MARK: - Dependencies
     
-    @InjectedObject(\.mainCoordinator) var mainCoordinator
+    @EnvironmentObject var mainCoordinator: MainCoordinator
     
     // MARK: - Lifecycle
     

@@ -8,6 +8,10 @@
 import FactoryKit
 
 extension Container {
+    var appConfig: Factory<AppConfigProtocol> {
+        Factory(self) { AppConfig() }.singleton
+    }
+    
     var networkClient: Factory<APIClientProtocol> {
         Factory(self) { APIClient() }
     }
@@ -26,9 +30,5 @@ extension Container {
     
     var sendOrderUseCase: Factory<SendOrderUseCaseProtocol> {
         Factory(self) { SendOrderUseCase() }
-    }
-    
-    var mainCoordinator: Factory<MainCoordinator> {
-        Factory(self) { @MainActor in MainCoordinator() }.shared
     }
 }
