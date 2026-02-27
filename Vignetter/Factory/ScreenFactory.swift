@@ -8,19 +8,19 @@
 import SwiftUI
 
 @MainActor
-class ScreenFactory {
+struct ScreenFactory {
 
-    static func createDashboard() -> some View {
+    static func createDashboard() -> DashboardView {
         let viewModel = DashboardViewModel()
         return DashboardView(viewModel: viewModel)
     }
     
-    static func createCountySelector(info: OrderInfo) -> some View {
+    static func createCountySelector(info: OrderInfo) -> CountySelectorView {
         let viewModel = CountySelectorViewModel(info: info)
         return CountySelectorView(viewModel: viewModel)
     }
     
-    static func createCheckout(info: OrderInfo) -> some View {
+    static func createCheckout(info: OrderInfo) -> CheckoutView {
         let viewModel = CheckoutViewModel(info: info)
         return CheckoutView(viewModel: viewModel)
     }

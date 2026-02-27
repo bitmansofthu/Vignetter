@@ -6,52 +6,37 @@
 //
 
 import Combine
-import FactoryKit
 import Foundation
 import SwiftUI
 
-@MainActor
-class MainCoordinator: ObservableObject {
+enum MainDestination: CoordinatorDestination {
+    case countySelector(_ info: OrderInfo)
+    case checkout(_ info: OrderInfo)
     
-    @Published var path: NavigationPath = NavigationPath()
-    
-    enum Destination: Hashable {
-        case countySelector(_ info: OrderInfo)
-        case checkout(_ info: OrderInfo)
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case let .countySelector(info):
+            ScreenFactory.createCountySelector(info: info)
+        case let .checkout(info):
+            ScreenFactory.createCheckout(info: info)
+        }
     }
-    
-    // This can be used to reset the root view StateObject
-    private var startID: UUID = UUID()
-    
-    func startView() -> some View {
-        ScreenFactory.createDashboard()
-            .navigationDestination(for: Destination.self) { destination in
-                switch destination {
-                case let .checkout(orderInfo):
-                    ScreenFactory.createCheckout(info: orderInfo)
-                case let .countySelector(orderInfo):
-                    ScreenFactory.createCountySelector(info: orderInfo)
-                }
-            }
-            .id(startID)
-    }
-    
-    func showCountySelector(orderInfo: OrderInfo) {
-        path.append(Destination.countySelector(orderInfo))
-    }
-    
-    func showCheckout(orderInfo: OrderInfo) {
-        path.append(Destination.checkout(orderInfo))
-    }
-    
-    func goBack() {
-        if !path.isEmpty {
-            path.removeLast()
+}
+
+class MainCoordinator: BaseCoordinator<MainDestination, DashboardView> {
+
+    init() {
+        super.init {
+            DashboardView(viewModel: DashboardViewModel())
         }
     }
     
-    func reset() {
-        path = NavigationPath()
-        startID = UUID()
+    func showCountySelector(orderInfo: OrderInfo) {
+        push(destination: .countySelector(orderInfo))
+    }
+    
+    func showCheckout(orderInfo: OrderInfo) {
+        push(destination: .checkout(orderInfo))
     }
 }
