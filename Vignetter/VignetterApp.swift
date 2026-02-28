@@ -15,7 +15,7 @@ struct VignetterApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $mainCoordinator.path) {
-                mainCoordinator.startView()
+                mainCoordinator.navigationView
             }
             .environmentObject(mainCoordinator)
         }

@@ -20,13 +20,13 @@ class BaseCoordinator<Destination: CoordinatorDestination, StartView: View>: Obs
     @Published var path: NavigationPath = NavigationPath()
     private var startID: UUID = UUID()
 
-    let startView: () -> StartView
+    private let startView: () -> StartView
     
     init(@ViewBuilder startView: @escaping () -> StartView) {
         self.startView = startView
     }
     
-    var navigation: some View {
+    var navigationView: some View {
         startView()
             .navigationDestination(for: Destination.self) { destination in
                 destination.view
