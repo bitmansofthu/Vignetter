@@ -8,31 +8,11 @@
 import Combine
 import SwiftUI
 
-protocol CoordinatorDestination: Hashable {
-    associatedtype RouteView: View
-    @MainActor
-    var view: RouteView { get }
-}
-
 @MainActor
-class BaseCoordinator<Destination: CoordinatorDestination, StartView: View>: ObservableObject {
+class BaseCoordinator<Destination>: ObservableObject where Destination: Hashable {
 
     @Published var path: NavigationPath = NavigationPath()
-    private var startID: UUID = UUID()
-
-    private let startView: () -> StartView
-    
-    init(@ViewBuilder startView: @escaping () -> StartView) {
-        self.startView = startView
-    }
-    
-    var navigationView: some View {
-        startView()
-            .navigationDestination(for: Destination.self) { destination in
-                destination.view
-            }
-            .id(startID)
-    }
+    var startID: UUID = UUID()
     
     func push(destination: Destination) {
         path.append(destination)

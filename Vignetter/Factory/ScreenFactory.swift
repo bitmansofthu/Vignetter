@@ -24,4 +24,8 @@ struct ScreenFactory {
         let viewModel = CheckoutViewModel(info: info)
         return CheckoutView(viewModel: viewModel)
     }
+    
+    private init() {
+        
+    }
 }

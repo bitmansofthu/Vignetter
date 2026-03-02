@@ -9,29 +9,26 @@ import Combine
 import Foundation
 import SwiftUI
 
-enum MainDestination: CoordinatorDestination {
+enum MainDestination: Hashable {
     case countySelector(_ info: OrderInfo)
     case checkout(_ info: OrderInfo)
-    
-    @ViewBuilder
-    var view: some View {
-        switch self {
-        case let .countySelector(info):
-            ScreenFactory.createCountySelector(info: info)
-        case let .checkout(info):
-            ScreenFactory.createCheckout(info: info)
-        }
-    }
 }
 
-class MainCoordinator: BaseCoordinator<MainDestination, DashboardView> {
-
-    init() {
-        super.init {
-            DashboardView(viewModel: DashboardViewModel())
-        }
-    }
+class MainCoordinator: BaseCoordinator<MainDestination> {
     
+    var navigationView: some View {
+        ScreenFactory.createDashboard()
+            .navigationDestination(for: MainDestination.self) { destination in
+                switch destination {
+                case let .countySelector(info):
+                    ScreenFactory.createCountySelector(info: info)
+                case let .checkout(info):
+                    ScreenFactory.createCheckout(info: info)
+                }
+            }
+            .id(startID)
+    }
+
     func showCountySelector(orderInfo: OrderInfo) {
         push(destination: .countySelector(orderInfo))
     }
