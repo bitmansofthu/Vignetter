@@ -7,23 +7,40 @@
 
 import SwiftUI
 
+enum NavigationActionButtonType {
+    case logout
+    
+    var view: () -> some View {
+        switch self {
+        case .logout:
+            { Image(systemName: "rectangle.portrait.and.arrow.right") }
+        }
+    }
+}
+
 struct NavigationTitleModifier: ViewModifier {
     
     private let color: Color
     private let title: LocalizedStringKey
     private let showBackButton: Bool
     private let backAction: (() -> Void)?
+    private let actionButtonType: NavigationActionButtonType?
+    private let action: (() -> Void)?
     
     init(
         title: LocalizedStringKey,
         color: Color,
         showBackButton: Bool,
-        backAction: (() -> Void)?
+        backAction: (() -> Void)?,
+        actionButtonType: NavigationActionButtonType?,
+        action: (() -> Void)?
     ) {
         self.color = color
         self.title = title
         self.showBackButton = showBackButton
         self.backAction = backAction
+        self.actionButtonType = actionButtonType
+        self.action = action
     }
     
     func body(content: Content) -> some View {
@@ -47,6 +64,15 @@ struct NavigationTitleModifier: ViewModifier {
                     Text(title)
                         .foregroundColor(.navy)
                 }
+                
+                if let actionButtonType {
+                    if #available(iOS 26.0, *) {
+                        actionToolbarItem(label: actionButtonType.view())
+                            .sharedBackgroundVisibility(.hidden)
+                    } else {
+                        actionToolbarItem(label: actionButtonType.view())
+                    }
+                }
             }
     }
     
@@ -59,6 +85,16 @@ struct NavigationTitleModifier: ViewModifier {
             }
         }
     }
+    
+    private func actionToolbarItem(label: some View) -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                action?()
+            } label: {
+                label
+            }
+        }
+    }
 }
 
 extension View {
@@ -66,13 +102,17 @@ extension View {
         title: LocalizedStringKey,
         color: Color = .navy,
         showBackButton: Bool = false,
-        backAction: (() -> Void)? = nil
+        backAction: (() -> Void)? = nil,
+        actionButtonType: NavigationActionButtonType? = nil,
+        action: (() -> Void)? = nil
     ) -> some View {
         modifier(NavigationTitleModifier(
             title: title,
             color: color,
             showBackButton: showBackButton,
-            backAction: backAction
+            backAction: backAction,
+            actionButtonType: actionButtonType,
+            action: action
         ))
     }
 }

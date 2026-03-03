@@ -53,10 +53,10 @@ struct CheckoutView: View {
         }
         .customNavigationTitle(
             title: "checkout_navigation_title",
-            showBackButton: !isSendingOrder
-        ) {
-            mainCoordinator.goBack()
-        }
+            showBackButton: !isSendingOrder,
+            backAction: {
+                mainCoordinator.goBack()
+            })
         .alert("checkout_alert_error_title", isPresented: $viewModel.showErrorAlert) {
             Button("alert_button_ok", role: .cancel) { }
         } message: {
@@ -73,14 +73,11 @@ struct CheckoutView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     VStack(spacing: Constants.spacing) {
-                        HStack {
-                            Text("checkout_title")
-                                .font(.brand(size: .FontSize.extraLarge, weight: .bold))
-                                .foregroundStyle(.navy)
-                                .lineLimit(1)
-                            
-                            Spacer()
-                        }
+                        Text("checkout_title")
+                            .font(.brand(size: .FontSize.extraLarge, weight: .bold))
+                            .foregroundStyle(.navy)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Divider()
                         
@@ -143,13 +140,10 @@ struct CheckoutView: View {
                     .padding([.bottom])
                     
                     if isSendingOrder {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .tint(.navy)
-                            Spacer()
-                        }
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .tint(.navy)
+                            .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
                 .padding(20)

@@ -274,6 +274,12 @@
         }
       }
     },
+    "Login" : {
+
+    },
+    "Password" : {
+
+    },
     "success_title" : {
       "localizations" : {
         "en" : {
@@ -283,6 +289,9 @@
           }
         }
       }
+    },
+    "User name" : {
+
     },
     "vignette_type_county" : {
       "localizations" : {

@@ -40,13 +40,11 @@ struct CountySelectorView: View {
                 .ignoresSafeArea()
             
             VStack {
-                HStack {
-                    Text("countySelector_title")
-                        .font(.brand(size: .FontSize.extraLarge, weight: .bold))
-                        .foregroundStyle(.navy)
-                        .lineLimit(1)
-                    Spacer()
-                }
+                Text("countySelector_title")
+                    .font(.brand(size: .FontSize.extraLarge, weight: .bold))
+                    .foregroundStyle(.navy)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 mapView
                     .padding(.bottom, 5)
@@ -56,19 +54,17 @@ struct CountySelectorView: View {
                 Divider()
                     .padding([.top, .bottom])
                 
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("countySelector_summaryPrice")
-                            .font(.brand(size: .FontSize.medium, weight: .bold))
-                            .foregroundStyle(.navy)
-                            .lineLimit(1)
-                        Text("\(viewModel.summaryPrice) Ft")
-                            .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
-                            .foregroundStyle(.navy)
-                            .lineLimit(1)
-                    }
-                    Spacer()
+                VStack(alignment: .leading) {
+                    Text("countySelector_summaryPrice")
+                        .font(.brand(size: .FontSize.medium, weight: .bold))
+                        .foregroundStyle(.navy)
+                        .lineLimit(1)
+                    Text("\(viewModel.summaryPrice) Ft")
+                        .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
+                        .foregroundStyle(.navy)
+                        .lineLimit(1)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 nextButton
             }
@@ -76,10 +72,11 @@ struct CountySelectorView: View {
         }
         .customNavigationTitle(
             title: "countySelector_navigation_title",
-            showBackButton: true
-        ) {
-            mainCoordinator.goBack()
-        }
+            showBackButton: true,
+            backAction: {
+                mainCoordinator.goBack()
+            }
+        )
         .alert("countySelector_validationError_title", isPresented: $showValidationError, actions: {
             Button("alert_button_ok") { }
         }, message: {

@@ -28,6 +28,7 @@ struct DashboardView: View {
     // MARK: - Dependencies
     
     @EnvironmentObject var mainCoordinator: MainCoordinator
+    @EnvironmentObject var appCoordinator: AppCoordinator
     
     // MARK: - Lifecycle
     
@@ -53,7 +54,13 @@ struct DashboardView: View {
                 errorView(message: message)
             }
         }
-        .customNavigationTitle(title: "dashboard_navigation_title")
+        .customNavigationTitle(
+            title: "dashboard_navigation_title",
+            actionButtonType: .logout,
+            action: {
+                appCoordinator.setState(.login)
+            }
+        )
         .task {
             if case .initial = viewModel.state {
                 await viewModel.fetchData()

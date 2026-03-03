@@ -60,24 +60,22 @@ struct CheckoutSuccessView: View {
     
     var messageWithLogo: some View {
         VStack(spacing: 5) {
-            HStack {
-                Text("success_title")
-                    .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
-                    .foregroundStyle(.navy)
-                    .lineLimit(3)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: 301)
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Image("logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 281, height: 293)
-                    .offset(x: 24)
-                    .opacity(opacity)
-            }
+            Text("success_title")
+                .font(.brand(size: .FontSize.ultraLarge, weight: .bold))
+                .foregroundStyle(.navy)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+                .frame(width: 301)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Image("logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 293)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .offset(x: 24)
+                .opacity(opacity)
+            
             Spacer()
         }
         .padding(.top, 210)

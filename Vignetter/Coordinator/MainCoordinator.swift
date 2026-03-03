@@ -16,6 +16,8 @@ enum MainDestination: Hashable {
 
 class MainCoordinator: BaseCoordinator<MainDestination> {
     
+    @Published var isSheetPresented: Bool = false
+    
     var navigationView: some View {
         ScreenFactory.createDashboard()
             .navigationDestination(for: MainDestination.self) { destination in
@@ -35,5 +37,9 @@ class MainCoordinator: BaseCoordinator<MainDestination> {
     
     func showCheckout(orderInfo: OrderInfo) {
         push(destination: .checkout(orderInfo))
+    }
+    
+    func showSheet() {
+        
     }
 }

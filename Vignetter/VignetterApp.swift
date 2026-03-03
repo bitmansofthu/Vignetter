@@ -11,13 +11,25 @@ import SwiftUI
 @main
 struct VignetterApp: App {
     @StateObject var mainCoordinator: MainCoordinator = MainCoordinator()
+    @StateObject var appCoordinator: AppCoordinator = AppCoordinator()
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $mainCoordinator.path) {
-                mainCoordinator.navigationView
+            ZStack {
+                switch appCoordinator.appState {
+                case .login:
+                    LoginView()
+                case .dashboard:
+                    NavigationStack(path: $mainCoordinator.path) {
+                        mainCoordinator.navigationView
+                    }
+                    .sheet(isPresented: $mainCoordinator.isSheetPresented) {
+                        
+                    }
+                    .environmentObject(mainCoordinator)
+                }
             }
-            .environmentObject(mainCoordinator)
+            .environmentObject(appCoordinator)
         }
     }
 }
