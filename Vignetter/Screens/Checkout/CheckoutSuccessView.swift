@@ -5,7 +5,6 @@
 //  Created by Ferenc Knebl on 2026. 02. 20..
 //
 
-import FactoryKit
 import SwiftUI
 
 struct CheckoutSuccessView: View {
