@@ -44,8 +44,6 @@ struct DashboardView: View {
                 .ignoresSafeArea()
             
             switch viewModel.state {
-            case .initial:
-                empty
             case .loading:
                 loading
             case let .loaded(viewState):
@@ -62,15 +60,7 @@ struct DashboardView: View {
             }
         )
         .task {
-            if case .initial = viewModel.state {
-                await viewModel.fetchData()
-            }
-        }
-    }
-    
-    private var empty: some View {
-        VStack {
-            Spacer()
+            await viewModel.fetchData()
         }
     }
     

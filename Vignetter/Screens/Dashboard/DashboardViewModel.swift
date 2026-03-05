@@ -16,7 +16,6 @@ struct DashboardViewState {
 }
 
 enum DashboardState {
-    case initial
     case loading
     case loaded(_ viewState: DashboardViewState)
     case error(_ message: LocalizedStringKey)
@@ -40,7 +39,7 @@ class DashboardViewModel: ObservableObject {
     // MARK: - Lifecycle
     
     init(
-        state: DashboardState = .initial,
+        state: DashboardState = .loading,
     ) {
         self.state = state
     }
